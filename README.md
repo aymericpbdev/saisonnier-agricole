@@ -70,4 +70,4 @@ Base de données : PostgreSQL
 
 ## Conventions
 
-Les règles de commits, de branches et de pull requests sont décrites dans le fichier [CONVENTIONS.md](./CONVENTIONS.md).
+Les règles de commits, de branches et de pull requests sont décrites dans le fichier [CONTRIBUTING.md](docs/CONTRIBUTING.md).
