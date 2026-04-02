@@ -1,0 +1,17 @@
+node_modules
+
+# Environment
+.env
+
+# Build
+dist
+
+# Prisma
+/generated/prisma
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
