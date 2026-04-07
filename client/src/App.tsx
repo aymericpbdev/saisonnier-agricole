@@ -1,7 +1,10 @@
-import Layout from './layout'
-
 function App() {
-  return <Layout />
+
+
+  return (
+    <>
+        </>
+  )
 }
 
 export default App
