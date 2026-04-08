@@ -21,14 +21,16 @@ enum Role {
 }
 
 enum StatutAnnonce {
-  Ouverte
   Fermée
   Archivée
   Brouillon
+  Cloturee
+  Active
 }
 
 enum StatutCandidature {
   En_Attente
+  En_Cours_d_Evaluation
   Acceptée
   Refusée
 }
@@ -63,7 +65,7 @@ model Exploitation {
   user   User   @relation(fields: [userId], references: [id])
 
   nomExploitation String
-  siret           String
+  siret           Int
 
   // Une exploitation publie plusieurs annonces
   annonces Annonce[]
@@ -110,8 +112,8 @@ id String @id @default(uuid())
   agriculteur   User @relation("AnnoncesAgriculteur", fields: [agriculteurId], references: [id])
 
   titre          String
-  statut         StatutAnnonce @default(Ouverte)
-  nombreDePostes String
+  statut         StatutAnnonce @default(Active)
+  nombreDePostes Int
   hebergement    String
   remuneration   Float
   competences    String
