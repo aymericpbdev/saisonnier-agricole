@@ -1,46 +1,68 @@
-import './layout.css'
+import '../styles/layout.css'
 import logo from '../assets/labor-logo-gradient.svg'
 
-// TODO: remplacer par le vrai système d'auth plus tard
+// remplacer par le vrai système d'auth plus tard
 type UserRole = 'public' | 'agriculteur' | 'saisonnier'
 const userRole: UserRole = 'agriculteur' // teste
 
 function Layout() {
   return (
     <div className="layout">
-      {/* HEADER / NAVBAR */}
+     {/* HEADER / NAVBAR */}
       <header className="header">
         <nav className="navbar">
           {/* Logo */}
-          <div className="navbar__logo"></div>
-
-          {/* Liens de navigation — conditionnels selon le rôle */}
-          <div className="navbar__links">
-            {/*  à remplacer par link quand react router  */}
-            <a href="/" className="navbar__link">Accueil</a>
-            <a href="/annonces" className="navbar__link">Annonces</a>
-
-            {userRole === 'agriculteur' && (
-              <a href="/creer-annonce" className="navbar__link">Créer une annonce</a>
-            )}
-
-            {userRole === 'saisonnier' && (
-              <a href="/mes-candidatures" className="navbar__link">Mes candidatures</a>
-            )}
+          <div className="navbar__logo">
+            <img src={logo} alt="Labor" className="navbar__logo-img" />
           </div>
 
-          {/* Boutons auth / profil — conditionnels selon le rôle */}
+          {/* Version public */}
           {userRole === 'public' ? (
-            <div className="navbar__auth">
-              <a href="/connexion" className="navbar__btn navbar__btn--connexion">Connexion</a>
-              <a href="/inscription" className="navbar__btn navbar__btn--inscription">Inscription</a>
-            </div>
+            <>
+              <div className="navbar__links">
+                <a href="/" className="navbar__link">Accueil</a>
+                <a href="/annonces" className="navbar__link">Annonces</a>
+              </div>
+              <div className="navbar__auth">
+                <a href="/connexion" className="navbar__btn navbar__btn--connexion">Connexion</a>
+                <a href="/inscription" className="navbar__btn navbar__btn--inscription">Inscription</a>
+              </div>
+            </>
           ) : (
-            <div className="navbar__auth">
-              <a href="/profil" className="navbar__btn navbar__btn--profil">Profil</a>
-            </div>
+            <>
+              {/* Version agri/saiso */}
+              <div className="navbar__links navbar__links--connected">
+                <a href="/" className="navbar__link-icon" aria-label="Accueil">⌂</a>
+                {userRole === 'agriculteur' && (
+                  <>
+                    <a href="/mes-annonces" className="navbar__link">Mes annonces</a>
+                    <a href="/creer-annonce" className="navbar__link">Créer une annonce</a>
+                  </>
+                )}
+                {userRole === 'saisonnier' && (
+                  <>
+                    <a href="/annonces" className="navbar__link">Annonces</a>
+                    <a href="/mes-candidatures" className="navbar__link">Mes candidatures</a>
+                  </>
+                )}
+                {/* profil */}
+                <div className="navbar__profile">
+                  <button className="navbar__profile-btn" onClick={() => {/* dropdown on click a modifier*/}}>
+                    <span className="navbar__profile-name">Jean Agri.</span>
+                    <span className="navbar__profile-icon">👤</span>
+                  </button>
+                  {/* Dropdown */}
+                  <div className="navbar__dropdown">
+                    <a href="/profil" className="navbar__dropdown-item">Mon profil</a>
+                    <a href="/parametres" className="navbar__dropdown-item">Paramètre</a>
+                    <a href="/deconnexion" className="navbar__dropdown-item navbar__dropdown-item--logout">Déconnexion</a>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </nav>
+        <div className="header__accent-line"></div>
       </header>
 
       {/* CONTENU PRINCIPAL */}
