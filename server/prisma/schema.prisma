@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -10,4 +8,187 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Enums ───
+enum Role {
+  Agriculteur
+  Saisonnier
+  Public
+}
+
+enum StatutAnnonce {
+  Brouillon
+  Cloturee
+  Active
+}
+
+enum StatutCandidature {
+  EnAttente
+  EnCoursEvaluation
+  Acceptee
+  Refusee
+}
+
+enum Competences {
+  Recolte
+  Plantation
+  Viticulture
+  Elevage
+  ConduiteEngins
+  Traite
+  Arboriculture
+  Maraichage
+}
+
+enum Disponibilites {
+  Janvier
+  Fevrier
+  Mars
+  Avril
+  Mai
+  Juin
+  Juillet
+  Aout
+  Septembre
+  Octobre
+  Novembre
+  Decembre
+}
+
+enum TypeRemuneration {
+  ParHeure
+  ParSemaine
+  ParMois
+}
+
+enum TypeHoraire {
+  TempsPlein
+  TempsPartiel
+  Journee
+  Nuit
+  WeekEnd
+  Flexible
+}
+
+enum TypeCulture {
+  Cereales
+  Fruits
+  Legumes
+  Vigne
+  Oliviers
+  Horticulture
+  Elevage
+  Maraichage
+  GrandesCultures
+}
+
+// ─── User ───
+model User {
+  id        String  @id @default(uuid())
+  email     String  @unique
+  password  String
+  role      Role
+  prenom    String
+  nom       String
+  telephone String?
+
+  // Relations
+  exploitation Exploitation?
+  saisonnier   Saisonnier?
+  annonces     Annonce[]     @relation("AnnoncesAgriculteur")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Exploitation ───
+model Exploitation {
+  id String @id @default(uuid())
+
+  // Relation 1-à-1 avec User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  nomExploitation String
+  siret           String
+  ville           String
+  codePostal      String
+  departement     String
+
+  annonces Annonce[]
+}
+
+// ─── Saisonnier ───
+model Saisonnier {
+  id String @id @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  ville          String
+  competences    Competences[]
+  disponibilites Disponibilites[]
+
+  documents    Document[]
+  candidatures Candidature[]
+}
+
+// ─── Document ───
+model Document {
+  id String @id @default(uuid())
+
+  saisonnierId String
+  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
+
+  label String
+  cvUrl String?
+}
+
+// ─── Annonce ───
+model Annonce {
+  id String @id @default(uuid())
+
+  exploitationId String
+  exploitation   Exploitation @relation(fields: [exploitationId], references: [id])
+
+  agriculteurId String
+  agriculteur   User   @relation("AnnoncesAgriculteur", fields: [agriculteurId], references: [id])
+
+  titre            String
+  statut           StatutAnnonce    @default(Brouillon)
+  nombreDePostes   Int
+  hebergement      Boolean          @default(false)
+  remuneration     Decimal
+  typeRemuneration TypeRemuneration @default(ParHeure)
+  competences      Competences[]
+  domaine          String
+  typeHoraire      TypeHoraire[]
+  dateDebut        DateTime
+  dateFin          DateTime
+  typeCulture      TypeCulture[]
+  localisation     String
+
+  candidatures Candidature[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Candidature ───
+model Candidature {
+  id String @id @default(uuid())
+
+  annonceId String
+  annonce   Annonce @relation(fields: [annonceId], references: [id])
+
+  saisonnierId String
+  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
+
+  message String
+  statut  StatutCandidature @default(EnAttente)
+
+  createdAt DateTime @default(now())
+
+  @@unique([annonceId, saisonnierId])
 }
