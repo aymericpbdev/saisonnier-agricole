@@ -29,23 +29,76 @@ enum StatutCandidature {
   EnAttente
   EnCoursEvaluation
   Acceptee
-  Refusée
+  Refusee
+}
+
+enum Competences {
+  Recolte
+  Plantation
+  Viiculture
+  Elevage
+  ConduiteEngins
+  Traite
+  Arboriculture
+  Maraichage
+}
+
+enum TypeCulture {
+  Cereales
+  Fruits
+  Legumes
+  Vigne
+  Oliviers
+  Horticulture
+  Elevage
+  Maraichage
+  GrandesCultures
+}
+
+enum Disponibilites {
+  Janvier
+  Fevrier
+  Mars
+  Avril
+  Mai
+  Juin
+  Juillet
+  Aout
+  Septembre
+  Octobre
+  Novembre
+  Decembre
+}
+
+enum TypeRemuneration {
+  ParHeure
+  ParSemaine
+  ParMois
+}
+
+enum TypeHoraire {
+  TempsPlein
+  TempsPartiel
+  Journee
+  Nuit
+  WeekEnd
+  Flexible
 }
 
 // ─── User ───
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String  @id @default(uuid())
+  email     String  @unique
   password  String
   role      Role
   prenom    String
   nom       String
-  telephone String ?
+  telephone String?
 
- // Relations 
+  // Relations 
   exploitation Exploitation?
   saisonnier   Saisonnier?
-  annonces Annonce[] @relation("AnnoncesAgriculteur")
+  annonces     Annonce[]     @relation("AnnoncesAgriculteur")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,7 +106,7 @@ model User {
 
 // ─── Exploitation ───
 model Exploitation {
-  id     String @id @default(uuid())
+  id String @id @default(uuid())
 
   // Relation 1-à-1 avec User
   userId String @unique
@@ -62,7 +115,7 @@ model Exploitation {
   nomExploitation String
   siret           String
   ville           String
-  CodePostal      String
+  codePostal      String
   departement     String
 
   // Une exploitation publie plusieurs annonces
@@ -78,8 +131,8 @@ model Saisonnier {
   user   User   @relation(fields: [userId], references: [id])
 
   // Informations profil
-  ville String
-  competences String[]
+  ville          String
+  competences    String[]
   disponibilites Disponibilites[]
 
   // Un saisonnier a plusieurs documents et candidatures
@@ -101,30 +154,28 @@ model Document {
 
 // ─── Annonce ───
 model Annonce {
-
-id String @id @default(uuid())
+  id String @id @default(uuid())
 
   // Relation Exploitation
   exploitationId String
   exploitation   Exploitation @relation(fields: [exploitationId], references: [id])
 
   agriculteurId String
-  agriculteur   User @relation("AnnoncesAgriculteur", fields: [agriculteurId], references: [id])
+  agriculteur   User   @relation("AnnoncesAgriculteur", fields: [agriculteurId], references: [id])
 
-  titre          String
-  statut         StatutAnnonce @default(Brouillon)
-  nombreDePostes Int
-  hebergement    Boolean @default(false)
-  remuneration   Decimal
-  competences    Competences[]
-  domaine        String
-  TypeContrat    TypeContrat[]
-  TypeHoraire    TypeHoraire[]
-  dates          DateTime
-  DateFin        DateTime
-  DateDebut      DateTime
-  TypeCulture    TypeCulture[]
-  localisation   String
+  titre            String
+  statut           StatutAnnonce    @default(Brouillon)
+  nombreDePostes   Int
+  hebergement      Boolean          @default(false)
+  remuneration     Decimal
+  typeRemuneration TypeRemuneration @default(ParHeure)
+  competences      Competences[]
+  domaine          String
+  typeHoraire      TypeHoraire[]
+  dateFin          DateTime
+  dateDebut        DateTime
+  typeCulture      TypeCulture[]
+  localisation     String
 
   // Une annonce reçoit plusieurs candidatures
   candidatures Candidature[]
@@ -141,19 +192,9 @@ model Candidature {
   annonceId String
   annonce   Annonce @relation(fields: [annonceId], references: [id])
 
- // Relation vers Saisonnier
+  // Relation vers Saisonnier
   saisonnierId String
   saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
 
-  message String
-  statut  StatutCandidature @default(En_Attente)
-
-  // Fil de messages liés à cette candidature
-  messages Message[]
-
-  createdAt DateTime @default(now())
-
   @@unique([annonceId, saisonnierId])
 }
-
-
