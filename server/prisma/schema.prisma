@@ -33,7 +33,7 @@ enum StatutCandidature {
 enum Competences {
   Recolte
   Plantation
-  Viiculture
+  Viticulture
   Elevage
   ConduiteEngins
   Traite
@@ -51,21 +51,6 @@ enum TypeCulture {
   Elevage
   Maraichage
   GrandesCultures
-}
-
-enum Disponibilites {
-  Janvier
-  Fevrier
-  Mars
-  Avril
-  Mai
-  Juin
-  Juillet
-  Aout
-  Septembre
-  Octobre
-  Novembre
-  Decembre
 }
 
 enum TypeRemuneration {
@@ -130,8 +115,14 @@ model Saisonnier {
 
   // Informations profil
   ville          String
-  competences    String[]
-  disponibilites Disponibilites[]
+  competences    Competences[]
+  disponibiliteDebut DateTime?
+  disponibiliteFin   DateTime?
+  ville String
+  compétences String[]
+  ville       String
+  codePostal  String
+  departement String
 
   // Un saisonnier a plusieurs documents et candidatures
   documents    Document[]
@@ -174,6 +165,7 @@ model Annonce {
   dateDebut        DateTime
   typeCulture      TypeCulture[]
   localisation     String
+  descriptionAnnonce  String
 
   // Une annonce reçoit plusieurs candidatures
   candidatures Candidature[]
@@ -193,6 +185,13 @@ model Candidature {
   // Relation vers Saisonnier
   saisonnierId String
   saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
+
+  statut StatutCandidature @default(EnAttente)
+
+// Fil de messages liés à cette candidature
+  messageMotivation MessageMotivation[]
+
+    crééÀ DateTime @default(now())
 
   @@unique([annonceId, saisonnierId])
 }
