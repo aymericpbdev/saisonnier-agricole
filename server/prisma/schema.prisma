@@ -77,7 +77,7 @@ model User {
   nom       String
   telephone String?
 
-  // Relations 
+  // Relations
   exploitation Exploitation?
   saisonnier   Saisonnier?
   annonces     Annonce[]     @relation("AnnoncesAgriculteur")
