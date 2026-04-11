@@ -96,9 +96,10 @@ model Exploitation {
 
   nomExploitation String
   siret           String
-  ville           String
-  codePostal      String
-  departement     String
+  ville           String?
+  codePostal      String?
+  departement     String?
+  telephonePro    String?
 
   // Une exploitation publie plusieurs annonces
   annonces Annonce[]
