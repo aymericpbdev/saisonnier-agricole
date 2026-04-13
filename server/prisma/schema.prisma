@@ -91,7 +91,7 @@ model Exploitation {
 
   // Relation 1-à-1 avec User
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   nomExploitation String
   siret           String
@@ -110,7 +110,7 @@ model Saisonnier {
 
   // Relation 1-à-1 avec User
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Informations profil (toutes optionnelles, complétées après inscription)
   ville              String?
@@ -130,7 +130,7 @@ model Annonce {
 
   // Relation Exploitation (l'agriculteur est accessible via exploitation.user)
   exploitationId String
-  exploitation   Exploitation @relation(fields: [exploitationId], references: [id])
+  exploitation   Exploitation @relation(fields: [exploitationId], references: [id], onDelete: Cascade)
 
   // Contenu de l'annonce
   titre       String
@@ -138,10 +138,10 @@ model Annonce {
   statut      StatutAnnonce @default(Brouillon)
 
   // Poste
-  nombreDePostes   Int
-  competences      Competences[]
-  typeCulture      TypeCulture
-  typeHoraire      TypeHoraire
+  nombreDePostes Int
+  competences    Competences[]
+  typeCulture    TypeCulture
+  typeHoraire    TypeHoraire
 
   // Conditions
   remuneration     Decimal
@@ -170,11 +170,11 @@ model Candidature {
 
   // Relation vers Annonce
   annonceId String
-  annonce   Annonce @relation(fields: [annonceId], references: [id])
+  annonce   Annonce @relation(fields: [annonceId], references: [id], onDelete: Cascade)
 
   // Relation vers Saisonnier
   saisonnierId String
-  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
+  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id], onDelete: Cascade)
 
   // Contenu
   messageMotivation String
