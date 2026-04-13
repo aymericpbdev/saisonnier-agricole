@@ -113,32 +113,16 @@ model Saisonnier {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
-  // Informations profil
-  ville          String
-  competences    Competences[]
+  // Informations profil (toutes optionnelles, complétées après inscription)
+  ville              String?
+  codePostal         String?
+  departement        String?
+  competences        Competences[]
   disponibiliteDebut DateTime?
   disponibiliteFin   DateTime?
-  ville String
-  compétences String[]
-  ville       String
-  codePostal  String
-  departement String
 
-  // Un saisonnier a plusieurs documents et candidatures
-  documents    Document[]
+  // Relations
   candidatures Candidature[]
-}
-
-// ─── Document ───
-model Document {
-  id String @id @default(uuid())
-
-  // Relation plusieurs-à-1 avec Saisonnier
-  saisonnierId String
-  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
-
-  label String
-  cvUrl String?
 }
 
 // ─── Annonce ───
