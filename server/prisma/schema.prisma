@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -10,4 +8,180 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Enums ───
+enum Role {
+  Agriculteur
+  Saisonnier
+}
+
+enum StatutAnnonce {
+  Brouillon
+  Cloturee
+  Active
+}
+
+enum StatutCandidature {
+  EnAttente
+  EnCoursEvaluation
+  Acceptee
+  Refusee
+}
+
+enum Competences {
+  Recolte
+  Plantation
+  Viticulture
+  Elevage
+  ConduiteEngins
+  Traite
+  Arboriculture
+  Maraichage
+}
+
+enum TypeCulture {
+  Cereales
+  Fruits
+  Legumes
+  Vigne
+  Oliviers
+  Horticulture
+  Elevage
+  Maraichage
+  GrandesCultures
+}
+
+enum TypeRemuneration {
+  ParHeure
+  ParSemaine
+  ParMois
+}
+
+enum TypeHoraire {
+  TempsPlein
+  TempsPartiel
+  Journee
+  Nuit
+  WeekEnd
+  Flexible
+}
+
+// ─── User ───
+model User {
+  id        String  @id @default(uuid())
+  email     String  @unique
+  password  String
+  role      Role
+  prenom    String
+  nom       String
+  telephone String?
+
+  // Relations
+  exploitation Exploitation?
+  saisonnier   Saisonnier?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Exploitation ───
+model Exploitation {
+  id String @id @default(uuid())
+
+  // Relation 1-à-1 avec User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  nomExploitation String
+  siret           String
+  ville           String?
+  codePostal      String?
+  departement     String?
+  telephonePro    String?
+
+  // Une exploitation publie plusieurs annonces
+  annonces Annonce[]
+}
+
+// ─── Saisonnier ───
+model Saisonnier {
+  id String @id @default(uuid())
+
+  // Relation 1-à-1 avec User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Informations profil (toutes optionnelles, complétées après inscription)
+  ville              String?
+  codePostal         String?
+  departement        String?
+  competences        Competences[]
+  disponibiliteDebut DateTime?
+  disponibiliteFin   DateTime?
+
+  // Relations
+  candidatures Candidature[]
+}
+
+// ─── Annonce ───
+model Annonce {
+  id String @id @default(uuid())
+
+  // Relation Exploitation (l'agriculteur est accessible via exploitation.user)
+  exploitationId String
+  exploitation   Exploitation @relation(fields: [exploitationId], references: [id], onDelete: Cascade)
+
+  // Contenu de l'annonce
+  titre       String
+  description String
+  statut      StatutAnnonce @default(Brouillon)
+
+  // Poste
+  nombreDePostes Int
+  competences    Competences[]
+  typeCulture    TypeCulture
+  typeHoraire    TypeHoraire
+
+  // Conditions
+  remuneration     Decimal
+  typeRemuneration TypeRemuneration @default(ParHeure)
+  hebergement      Boolean          @default(false)
+
+  // Période
+  dateDebut DateTime
+  dateFin   DateTime
+
+  // Localisation (pré-remplie depuis l'exploitation, mais indépendante)
+  ville       String
+  codePostal  String?
+  departement String
+
+  // Relations
+  candidatures Candidature[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Candidature ───
+model Candidature {
+  id String @id @default(uuid())
+
+  // Relation vers Annonce
+  annonceId String
+  annonce   Annonce @relation(fields: [annonceId], references: [id], onDelete: Cascade)
+
+  // Relation vers Saisonnier
+  saisonnierId String
+  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id], onDelete: Cascade)
+
+  // Contenu
+  messageMotivation String
+  statut            StatutCandidature @default(EnAttente)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([annonceId, saisonnierId])
 }
