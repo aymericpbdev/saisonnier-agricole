@@ -176,12 +176,12 @@ model Candidature {
   saisonnierId String
   saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id])
 
-  statut StatutCandidature @default(EnAttente)
+  // Contenu
+  messageMotivation String
+  statut            StatutCandidature @default(EnAttente)
 
-// Fil de messages liés à cette candidature
-  messageMotivation MessageMotivation[]
-
-    crééÀ DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([annonceId, saisonnierId])
 }
