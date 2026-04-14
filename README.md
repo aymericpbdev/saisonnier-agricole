@@ -143,6 +143,11 @@ saisonnier-agricole/
         prisma/
             schema.prisma  --> Definition des tables de la base de donnees
 ```
+## Charte graphique
+
+Première version de la charte graphique du projet. Vouée à évoluer, elle est néanmoins suffisamment complète pour poser les bases visuelles et servir de référence dans l'élaboration graphique du projet.
+
+[Voir la charte graphique v1 (PDF)](./Charte-graphique-LABOR-v1.pdf)
 
 ## Conventions
 

@@ -97,3 +97,25 @@ Une approbation minimum est requise avant de merger. Le merge se fait via l'inte
 | Branche | `type/description-courte` | `feat/ajout-page-connexion` |
 | Commit | `type: description courte` | `feat: ajout du formulaire de connexion` |
 | Titre de PR | `type: description courte` | `feat: ajout de la page de connexion` |
+
+## Labels GitHub
+
+Chaque issue doit avoir **au minimum** :
+- Un label de **type d'issue** (🐛 bug, ✨ feature, 📝 documentation, ♻️ refactor, 🔧 chore)
+- Un label de **zone technique** (⚙️ backend, 🎨 frontend, 🗄️ database, 🔌 api)
+
+Et **idéalement** :
+- Un label de **domaine fonctionnel** quand c'est pertinent (🔐 auth, 👤 profil, 📋 annonces, 📨 candidatures, 🔍 recherche, 📧 emails)
+
+### Exemples
+
+- Créer l'endpoint POST /auth/signup → `✨ feature` + `⚙️ backend` + `🔐 auth`
+- Corriger un bug d'affichage sur la page de recherche → `🐛 bug` + `🎨 frontend` + `🔍 recherche`
+- Ajouter une migration pour un nouveau champ → `✨ feature` + `🗄️ database`
+- Documenter l'architecture backend → `📝 documentation` + `⚙️ backend`
+- Mettre à jour une dépendance → `🔧 chore`
+
+### Quelques règles
+- Une issue = un seul label de type, un seul label de zone
+- Une issue peut avoir plusieurs labels de domaine si elle en touche plusieurs (rare)
+- Si tu ne sais pas quel label mettre, mets au minimum le type et la zone, on ajustera à la review
