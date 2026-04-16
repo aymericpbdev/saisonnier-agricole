@@ -1,16 +1,17 @@
 // Point d'entree unique pour tous les types
-// Usage : import { User, Annonce, Role } from '../types'
+// Usage : import { User, JobListing, Role } from '../types'
 
 export {
-    Role,
-    StatutAnnonce,
-    StatutCandidature,
-    Competences,
-    TypeCulture,
-    TypeRemuneration,
-    TypeHoraire,
-  } from './enums'
-  
-  export type { User, Exploitation, Saisonnier } from './user'
-  export type { Annonce } from './annonce'
-  export type { Candidature } from './candidature'
+  Role,
+  JobListingStatus,
+  ApplicationStatus,
+  Skill,
+  CropType,
+  PaymentType,
+  WorkSchedule,
+} from './Enums'
+
+export type { User, Farmer, SeasonalWorker } from './User'
+export type { Farm } from './Farm'
+export type { JobListing } from './Joblisting'
+export type { Application } from './application'
