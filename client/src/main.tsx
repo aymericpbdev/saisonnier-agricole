@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
+import { AuthProvider } from './contexts/Authcontext.tsx'
 
 async function startApp() {
   // active msw en mode dev
@@ -11,9 +12,11 @@ async function startApp() {
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </StrictMode>,
-  )
+  );
 }
 
-startApp()
+startApp();
