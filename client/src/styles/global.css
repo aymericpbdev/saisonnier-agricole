@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+
+/* Couleurs de la charte graphique */
+    --labor-charcoal: #2C2A1E;
+    --labor-fern: #5A7A3A;
+    --labor-sage: #7A9E50;
+    --labor-orange: #F4A226;
+    --labor-cream: #EDE8D0;
+    --labor-gradient-sun: linear-gradient(to bottom, #FAD961, #F76B1C);
+
+
+/* Couleurs */
+
+    /* Texte */
+    --labor-color-text: var(--labor-charcoal);
+    --labor-color-text-light: var(--labor-cream);
+    --labor-color-text-reverse: ;
+
+    /* Fonds */
+    --labor-color-bg: #fff;
+    --labor-color-bg-soft: var(--labor-cream) ; 
+    --labor-color-bg-dark: var(--labor-charcoal) ;
+    --labor-color-bg-highlight:var(--labor-orange) ;
+
+    /* Actions */
+    --labor-color-primary: var(--labor-sage);
+    --labor-color-primary-hover: var(--labor-fern);
+    --labor-color-secondary: var(--labor-orange);
+    --labor-color-secondary-hover: #D88A1A;
+    --labor-color-danger-hover: ;
+
+    /* Feedbacks/Statuts */
+    --labor-color-success: var(--labor-sage);
+    --labor-color-warning: var(--labor-orange);
+    --labor-color-danger: #C4453C ;
+    --labor-color-neutral: #8A8474 ;
+
+    /* Badges */
+    --labor-color-badge-active: var(--labor-sage) ;
+    --labor-color-badge-active-bg: #EDF4E8 ;
+    
+    --labor-color-badge-brouillon: #8A8474;
+    --labor-color-badge-brouillon-bg: #F0EDE6 ;
+
+    --labor-color-badge-cloturee: #C4453C ;
+    --labor-color-badge-cloturee-bg: #FBEAEA ;
+    
+
+    --labor-color-badge-en-attente: #8A8474 ;
+    --labor-color-badge-en-attente-bg: #F0EDE6 ;
+    
+    --labor-color-badge-evaluation:var(--labor-orange) ;
+    --labor-color-badge-evaluation-bg: #FDF3E0 ;
+    
+    --labor-color-badge-accepte: var(--labor-sage) ;
+    --labor-color-badge-accepte-bg: #EDF4E8  ;
+
+    --labor-color-badge-refuse: #C4453C  ;
+    --labor-color-badge-refuse-bg: #FBEAEA ;
+
+    /* Bordures */
+    --labor-color-border: var(--labor-orange) ;
+    --labor-color-border-gradient: linear-gradient(#FAD961, #F76B1C) ;
+    --labor-color-border-light: var(--labor-cream) ;
+
+
+/* Typographie */
+
+    /* Fonts */
+    --labor-font-heading: 'Outfit', sans-serif;
+    --labor-font-body: 'Atkinson Hyperlegible', sans-serif;
+
+    /* Weights */
+    /* utilisé uniquement regular ou bold pour le text, atkinson ne propose que ces deux epaisseur*/
+    --labor-font-weight-regular: 400; 
+    --labor-font-weight-medium: 500;
+    --labor-font-weight-semibold: 600;
+    --labor-font-weight-bold: 700;
+
+    /* font size (desk) */
+    --labor-font-size-xs: 0.75rem;
+    --labor-font-size-s: 0.875rem;
+    --labor-font-size-m: 1rem;
+    --labor-font-size-l: 1.25rem;
+    --labor-font-size-xl: 1.5rem;
+    --labor-font-size-2xl: 1.875rem;
+    --labor-font-size-3xl: 2.25rem;
+
+    /* Spacing */
+    --labor-spacing-xs: 0.25rem;
+    --labor-spacing-s: 0.5rem;
+    --labor-spacing-m: 1rem;
+    --labor-spacing-l: 1.5rem;
+    --labor-spacing-xl: 2rem;
+    --labor-spacing-2xl: 3rem;
+    --labor-spacing-3xl: 4rem;
+
+    /* radius */
+    --labor-radius-s: 0.25rem;
+    --labor-radius-m: 0.5rem;
+    --labor-radius-l: 1rem;
+    --labor-radius-full: 9999px;
+
+}
+
+
+
+@media (max-width: 768px) {
+:root {
+
+/* Typographie */
+    /* font size (mobile) */
+    --labor-font-size-l: 1.125rem;
+    --labor-font-size-xl: 1.375rem;
+    --labor-font-size-2xl: 1.625rem;
+    --labor-font-size-3xl: 2rem;
+
+}
+}
+
+/* RESET MINIMAL */
+/* Box-sizing global */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Marges par défaut */
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+ul, ol,
+figure,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+/* Listes */
+ul, ol {
+  list-style: none;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Boutons et inputs héritent de la typo */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* STYLES PAR DÉFAUT*/
+
+body {
+  font-family: var(--labor-font-body);
+  font-size: var(--labor-font-size-m);
+  font-weight: var(--labor-font-weight-regular);
+  color: var(--labor-color-text);
+  background-color: var(--labor-color-bg);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--labor-font-heading);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--labor-font-size-3xl);
+  font-weight: var(--labor-font-weight-bold);
+}
+
+h2 {
+  font-size: var(--labor-font-size-2xl);
+  font-weight: var(--labor-font-weight-bold);
+}
+
+h3 {
+  font-size: var(--labor-font-size-xl);
+  font-weight: var(--labor-font-weight-semibold);
+}
+
+h4 {
+  font-size: var(--labor-font-size-l);
+  font-weight: var(--labor-font-weight-semibold);
+}
+
+a {
+  color: var(--labor-color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--labor-color-primary-hover);
+}
