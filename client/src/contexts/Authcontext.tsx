@@ -1,4 +1,16 @@
-// src/contexts/AuthContext.tsx
+/*
+ * AuthContext - Version 1 (mock en dur)
+ *
+ * Utilisateur actuellement mocké : Jean Dupont (agriculteur)
+ *
+ * Pour tester un autre rôle, change simplement la ligne "role" dans mockCurrentUser :
+ *   - 'agriculteur'
+ *   - 'admin'
+ *   - 'client'
+ *
+ * Une fois le vrai backend + MSW prêt, on remplacera le mock par un vrai appel API.
+ */
+
 import { createContext, useContext,  useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 export interface User {
@@ -16,7 +28,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// Mock en dur (conforme au ticket)
 const mockCurrentUser: User = {
   id: 'user-001',
   name: 'Jean Dupont',
@@ -29,8 +40,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  // Simulation de chargement
+  
   useEffect(() => {
     setTimeout(() => {
       setCurrentUser(mockCurrentUser);
@@ -39,8 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const role = currentUser?.role ?? null;
-
-  // Fonction login
+  
   const login = async (email: string, password: string) => {
     console.warn(`🔧 Tentative de login avec ${email} / ${password} - Fonctionnalité pas encore connectée`);
   };
