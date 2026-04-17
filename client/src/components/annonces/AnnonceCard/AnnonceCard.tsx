@@ -1,13 +1,13 @@
 import type { ReactNode} from 'react'
 
 import { getImageForCulture } from '../../../utils/cultureImages'
-import type { TypeCulture } from '../../../utils/cultureImages'
+import type { CropType } from '../../../types'
 
 import './AnnonceCard.css'
 
 type AnnonceCardProps = {
     imgUrl?: string 
-    typeCulture?: TypeCulture | string | null 
+    typeCulture?: CropType | string | null
     children: ReactNode
     onClick?: () => void
     className?: string

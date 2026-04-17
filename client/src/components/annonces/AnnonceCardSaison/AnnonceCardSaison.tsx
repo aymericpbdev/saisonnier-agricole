@@ -1,41 +1,46 @@
-
 import AnnonceCard from '../AnnonceCard/AnnonceCard'
-import type { TypeCulture } from '../../../utils/cultureImages'
+import Badge from '../../ui/Badge/Badge'
+import type { CropType, JobListingStatus, PaymentType } from '../../../types'
+
 
 import './AnnonceCardSaison.css'
 
-// TYPES 
+// TYPES
 type AnnonceCardSaisonProps = {
-  // Infos de l'annonce
   titre: string
-  typeCulture: TypeCulture | string
+  cropType: CropType
   ville: string
   departement: string
   dateDebut: string
   dateFin: string
   hebergement: boolean
-  remuneration: string         // ex: "12 €/h", "110 €/jour"
+  payAmount: number
+  paymentType: PaymentType
   postesRestants: number
   postesTotal: number
-  statut: 'active' | 'cloturee'
-
-  // Image custom (optionnel, sinon on prend par type de culture)
+  statut: JobListingStatus
   imgUrl?: string
-
-  // Callback au clic
   onClick?: () => void
+}
+
+// Labels français pour les types de paiement
+const PAYMENT_LABELS: Record<PaymentType, string> = {
+  Hourly: '/h',
+  Weekly: '/sem',
+  Monthly: '/mois',
 }
 
 // COMPOSANT
 function AnnonceCardSaison({
   titre,
-  typeCulture,
+  cropType,
   ville,
   departement,
   dateDebut,
   dateFin,
   hebergement,
-  remuneration,
+  payAmount,
+  paymentType,
   postesRestants,
   postesTotal,
   statut,
@@ -44,24 +49,22 @@ function AnnonceCardSaison({
 }: AnnonceCardSaisonProps) {
   return (
     <AnnonceCard
-      typeCulture={typeCulture}
+      typeCulture={cropType}
       imgUrl={imgUrl}
       onClick={onClick}
     >
-      {/* EN-TÊTE : titre + badge */}
+      {/* En-tête : titre + badge */}
       <div className="annonce-saison__header">
         <div>
           <h3 className="annonce-saison__title">{titre}</h3>
           <p className="annonce-saison__subtitle">
-            {typeCulture} · {ville}, {departement}
+            {ville}, {departement}
           </p>
         </div>
-        <span className={`annonce-saison__badge annonce-saison__badge--${statut}`}>
-          {statut === 'active' ? 'Active' : 'Clôturée'}
-        </span>
+        <Badge variant={statut} />
       </div>
 
-      {/* MÉTA : dates + hébergement */}
+      {/* Méta : dates + hébergement */}
       <div className="annonce-saison__meta">
         <span className="annonce-saison__meta-item">
           <svg className="annonce-saison__icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -78,9 +81,11 @@ function AnnonceCardSaison({
         </span>
       </div>
 
-      {/* FOOTER : rémunération + postes */}
+      {/* Footer : rémunération + postes */}
       <div className="annonce-saison__footer">
-        <span className="annonce-saison__reward">{remuneration}</span>
+        <span className="annonce-saison__reward">
+          {payAmount} €{PAYMENT_LABELS[paymentType]}
+        </span>
         <span className="annonce-saison__postes">
           <strong>{postesRestants}</strong> postes restants sur {postesTotal}
         </span>
