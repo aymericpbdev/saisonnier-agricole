@@ -1,0 +1,84 @@
+/* ANNONCE CARD AGRI 
+    contenu spécifique vue agriculteur
+    S'insère dans AnnonceCard via children.
+    Layout en deux colonnes : infos à gauche, compteur à droite.*/
+
+   .annonce-agri__layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--labor-spacing-l);
+    height: 100%;
+  }
+  
+  /* COLONNE GAUCHE */
+  .annonce-agri__left {
+    min-width: 0;
+    flex: 1;
+  }
+  
+  .annonce-agri__title {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+    font-size: var(--labor-font-size-l);
+    color: var(--labor-charcoal);
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+  
+  .annonce-agri__dates {
+    font-size: var(--labor-font-size-s);
+    color: var(--labor-color-text-green);
+    margin-bottom: var(--labor-spacing-s);
+  }
+  
+  .annonce-agri__badge-row {
+    display: flex;
+    gap: var(--labor-spacing-s);
+    align-items: center;
+  }
+  
+  /* Réutilise les classes badge de AnnonceCardSaison via import CSS
+     TODO: sera remplacé par le composant Badge lors du refacto */
+  
+  .annonce-agri__pending {
+    display: inline-block;
+    font-size: var(--labor-font-size-xs);
+    padding: 2px 8px;
+    background: var(--labor-color-warning-bg, #FDF3E0);
+    color: var(--labor-color-warning, #a06e10);
+    border-radius: var(--labor-radius-full);
+  }
+  
+  /* COLONNE DROITE*/
+  .annonce-agri__right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  
+  .annonce-agri__count {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-bold);
+    font-size: var(--labor-font-size-xl);
+    color: var(--labor-color-primary);
+    line-height: 1;
+  }
+  
+  .annonce-agri__count-label {
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-text-green);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .annonce-agri__title {
+      font-size: var(--labor-font-size-m);
+    }
+  
+    .annonce-agri__count {
+      font-size: var(--labor-font-size-l);
+    }
+  }

@@ -16,6 +16,7 @@
     /* Texte */
     --labor-color-text: var(--labor-charcoal);
     --labor-color-text-light: var(--labor-cream);
+    --labor-color-text-green: var(--labor-sage);
     --labor-color-text-reverse: ;
 
     /* Fonds */
@@ -76,7 +77,7 @@
     --labor-color-badge-refuse-bg: #FBEAEA ;
 
     /* Bordures */
-    --labor-color-border: var(--labor-orange) ;
+    --labor-color-border: #8A8474 ;
     --labor-color-border-gradient: linear-gradient(#FAD961, #F76B1C) ;
     --labor-color-border-light: var(--labor-cream) ;
 
