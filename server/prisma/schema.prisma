@@ -12,100 +12,118 @@ datasource db {
 
 // ─── Enums ───
 enum Role {
-  Agriculteur
-  Saisonnier
+  Farmer
+  SeasonalWorker
 }
 
-enum StatutAnnonce {
-  Brouillon
-  Cloturee
+enum JobListingStatus {
+  Draft
   Active
+  Closed
 }
 
-enum StatutCandidature {
-  EnAttente
-  EnCoursEvaluation
-  Acceptee
-  Refusee
+enum ApplicationStatus {
+  Pending
+  UnderReview
+  Accepted
+  Rejected
 }
 
-enum Competences {
-  Recolte
-  Plantation
+enum Skill {
+  Harvesting
+  Planting
   Viticulture
-  Elevage
-  ConduiteEngins
-  Traite
+  Livestock
+  MachineOperation
+  Milking
   Arboriculture
-  Maraichage
+  MarketGardening
 }
 
-enum TypeCulture {
-  Cereales
+enum CropType {
+  Cereals
   Fruits
-  Legumes
-  Vigne
-  Oliviers
+  Vegetables
+  Vineyard
+  OliveTrees
   Horticulture
-  Elevage
-  Maraichage
-  GrandesCultures
+  Livestock
+  MarketGardening
+  FieldCrops
 }
 
-enum TypeRemuneration {
-  ParHeure
-  ParSemaine
-  ParMois
+enum PaymentType {
+  Hourly
+  Weekly
+  Monthly
 }
 
-enum TypeHoraire {
-  TempsPlein
-  TempsPartiel
-  Journee
-  Nuit
-  WeekEnd
+enum WorkSchedule {
+  FullTime
+  PartTime
+  Day
+  Night
+  Weekend
   Flexible
 }
 
 // ─── User ───
 model User {
-  id        String  @id @default(uuid())
-  email     String  @unique
-  password  String
-  role      Role
-  prenom    String
-  nom       String
-  telephone String?
+  id           String  @id @default(uuid())
+  email        String  @unique
+  passwordHash String
+  role         Role
+  firstName    String
+  lastName     String
+  phoneNumber  String?
 
   // Relations
-  exploitation Exploitation?
-  saisonnier   Saisonnier?
+  farmer         Farmer?
+  seasonalWorker SeasonalWorker?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Exploitation ───
-model Exploitation {
+// ─── Agriculteur ───
+model Farmer {
   id String @id @default(uuid())
 
   // Relation 1-à-1 avec User
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  nomExploitation String
-  siret           String
-  ville           String?
-  codePostal      String?
-  departement     String?
-  telephonePro    String?
+  // Un agriculteur peut gérer plusieurs exploitations (1-N préparé pour le post-MVP)
+  farms Farm[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Exploitation ───
+model Farm {
+  id String @id @default(uuid())
+
+  // Relation N-1 avec Farmer (un agriculteur peut avoir plusieurs exploitations)
+  farmerId String
+  farmer   Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  farmName       String
+  siret          String  @unique
+  city           String?
+  postalCode     String?
+  departement    String? /// Subdivision administrative française
+  proPhoneNumber String?
 
   // Une exploitation publie plusieurs annonces
-  annonces Annonce[]
+  jobListings JobListing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ─── Saisonnier ───
-model Saisonnier {
+model SeasonalWorker {
   id String @id @default(uuid())
 
   // Relation 1-à-1 avec User
@@ -113,75 +131,78 @@ model Saisonnier {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Informations profil (toutes optionnelles, complétées après inscription)
-  ville              String?
-  codePostal         String?
-  departement        String?
-  competences        Competences[]
-  disponibiliteDebut DateTime?
-  disponibiliteFin   DateTime?
+  city              String?
+  postalCode        String?
+  departement       String? /// Subdivision administrative française
+  skills            Skill[]
+  availabilityStart DateTime?
+  availabilityEnd   DateTime?
 
   // Relations
-  candidatures Candidature[]
+  applications Application[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ─── Annonce ───
-model Annonce {
+model JobListing {
   id String @id @default(uuid())
 
-  // Relation Exploitation (l'agriculteur est accessible via exploitation.user)
-  exploitationId String
-  exploitation   Exploitation @relation(fields: [exploitationId], references: [id], onDelete: Cascade)
+  // Relation Farm (le farmer est accessible via farm.farmer)
+  farmId String
+  farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
 
   // Contenu de l'annonce
-  titre       String
+  jobTitle    String
   description String
-  statut      StatutAnnonce @default(Brouillon)
+  status      JobListingStatus @default(Draft)
 
   // Poste
-  nombreDePostes Int
-  competences    Competences[]
-  typeCulture    TypeCulture
-  typeHoraire    TypeHoraire
+  numberOfPositions Int
+  skills            Skill[]
+  cropType          CropType
+  workSchedule      WorkSchedule
 
   // Conditions
-  remuneration     Decimal
-  typeRemuneration TypeRemuneration @default(ParHeure)
-  hebergement      Boolean          @default(false)
+  payAmount       Decimal
+  paymentType     PaymentType @default(Hourly)
+  housingProvided Boolean     @default(false)
 
   // Période
-  dateDebut DateTime
-  dateFin   DateTime
+  startDate DateTime
+  endDate   DateTime
 
-  // Localisation (pré-remplie depuis l'exploitation, mais indépendante)
-  ville       String
-  codePostal  String?
-  departement String
+  // Localisation (pré-remplie depuis la Farm, mais indépendante)
+  city        String
+  postalCode  String?
+  departement String /// Subdivision administrative française
 
   // Relations
-  candidatures Candidature[]
+  applications Application[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 // ─── Candidature ───
-model Candidature {
+model Application {
   id String @id @default(uuid())
 
-  // Relation vers Annonce
-  annonceId String
-  annonce   Annonce @relation(fields: [annonceId], references: [id], onDelete: Cascade)
+  // Relation vers JobListing
+  jobListingId String
+  jobListing   JobListing @relation(fields: [jobListingId], references: [id], onDelete: Cascade)
 
-  // Relation vers Saisonnier
-  saisonnierId String
-  saisonnier   Saisonnier @relation(fields: [saisonnierId], references: [id], onDelete: Cascade)
+  // Relation vers SeasonalWorker
+  seasonalWorkerId String
+  seasonalWorker   SeasonalWorker @relation(fields: [seasonalWorkerId], references: [id], onDelete: Cascade)
 
   // Contenu
-  messageMotivation String
-  statut            StatutCandidature @default(EnAttente)
+  coverLetter String
+  status      ApplicationStatus @default(Pending)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([annonceId, saisonnierId])
+  @@unique([jobListingId, seasonalWorkerId])
 }
