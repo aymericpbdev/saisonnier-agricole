@@ -1,0 +1,70 @@
+/* ALERT BANNER  bandeau de notification
+
+   Variantes :
+   -warning: profil incomplet, champs manquants
+   -error: erreur de connexion, formulaire invalide
+   -success: mise à jour réussie, annonce publiée
+   -info: information générale, en attente de validation
+
+   Positionné en haut de la zone de contenu,
+   Reste affiché tant que la condition est vraie.*/
+
+   .alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--labor-radius-m);
+    font-size: var(--labor-font-size-s);
+    line-height: 1.5;
+    max-width: 600px;
+    width: 100%;
+    margin: var(--labor-spacing-m) auto;
+  }
+  
+  /* ICONE*/
+  .alert-banner__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  
+  /* CONTENU */
+  .alert-banner__content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .alert-banner__title {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+    font-size: var(--labor-font-size-m);
+    margin-bottom: 2px;
+  }
+  
+  .alert-banner__text {
+    font-style: normal;
+  }
+  
+  /* VARIANTES*/
+  
+  .alert-banner--warning {
+    background: var(--labor-color-badge-warning-bg, #FDF3E0);
+    color: var(--labor-color-alert-warning, #7a5410);
+  }
+  
+  .alert-banner--error {
+    background: var(--labor-color-badge-danger-bg, #FBEAEA);
+    color: var(--labor-color-alert-error, #9e312a);
+  }
+  
+  .alert-banner--success {
+    background: var(--labor-color-badge-success-bg, #EDF4E8);
+    color: var(--labor-color-alert-success, #3d5a22);
+  }
+  
+  .alert-banner--info {
+    background: var(--labor-color-badge-review-bg, #E8E6DF);
+    color: var(--labor-color-alert-info, #2C2A1E);
+  }

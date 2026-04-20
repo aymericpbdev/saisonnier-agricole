@@ -8,6 +8,7 @@ import Badge from '../../components/ui/Badge/Badge'
 import Tag from '../../components/ui/Tag/Tag'
 import type { Skill } from '../../types'
 import { Skill as SkillEnum } from '../../types'
+import AlertBanner from '../../components/ui/AlertBanner/AlertBanner'
 
 
 
@@ -131,6 +132,22 @@ function HomePage() {
           <Tag value={SkillEnum.Viticulture} displayOnly />
           <Tag value={SkillEnum.MachineOperation} displayOnly />
         </div>
+
+   
+        <AlertBanner variant="warning" title="Profil incomplet">
+          Champs manquants : localisation, téléphone
+        </AlertBanner>
+      
+
+
+        <AlertBanner variant="error" title="Erreur de connexion">
+          Identifiants incorrects. Vérifiez votre email et mot de passe.
+        </AlertBanner>
+      
+
+      <AlertBanner variant="success">
+        Vos modifications ont été enregistrées.
+      </AlertBanner>
 
 
       </div>
