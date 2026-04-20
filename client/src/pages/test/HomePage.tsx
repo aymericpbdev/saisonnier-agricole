@@ -1,12 +1,36 @@
+import { useState } from 'react'
+
 import Button from '../../components/ui/Button/Button'
 import AnnonceCard from '../../components/annonces/AnnonceCard/AnnonceCard'
 import AnnonceCardSaison from '../../components/annonces/AnnonceCardSaison/AnnonceCardSaison'
 import AnnonceCardAgri from '../../components/annonces/AnnonceCardAgri/AnnonceCardAgri'
 import Badge from '../../components/ui/Badge/Badge'
+import Tag from '../../components/ui/Tag/Tag'
+import type { Skill } from '../../types'
+import { Skill as SkillEnum } from '../../types'
+
+
 
 
 
 function HomePage() {
+
+  const [selectedSkills, setSelectedSkills] = useState<Skill[]>([
+    SkillEnum.MarketGardening,
+    SkillEnum.Planting,
+  ])
+
+  // Toggle une skill dans la liste
+  function handleToggle(skill: Skill) {
+    setSelectedSkills(prev =>
+      prev.includes(skill)
+        ? prev.filter(s => s !== skill)
+        : [...prev, skill]
+    )
+  }
+
+  const allSkills = Object.values(SkillEnum)
+
     return (
       <div>
         <h1>Accueil — Labor</h1>
@@ -84,6 +108,29 @@ function HomePage() {
       <Badge variant='Draft' size='m'  ></Badge>
       <Badge variant='Closed' size='s'  ></Badge>
 
+
+      <h2>Mes compétences</h2>
+
+        {/* Sélection profil saisonnier */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '1rem' }}>
+          {allSkills.map(skill => (
+            <Tag
+              key={skill}
+              value={skill}
+              selected={selectedSkills.includes(skill)}
+              onClick={handleToggle}
+            />
+          ))}
+        </div>
+        
+        <h2 style={{ marginTop: '2rem' }}>Détail annonce (display-only)</h2>
+        
+        {/* Affichage détail annonce */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '1rem' }}>
+          <Tag value={SkillEnum.Harvesting} displayOnly />
+          <Tag value={SkillEnum.Viticulture} displayOnly />
+          <Tag value={SkillEnum.MachineOperation} displayOnly />
+        </div>
 
 
       </div>

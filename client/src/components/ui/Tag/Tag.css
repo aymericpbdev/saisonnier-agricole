@@ -1,0 +1,84 @@
+/* TAG sélecteur de compétences (Skill)
+   Deux modes :
+   -Sélectionnable (button) : toggle actif/inactif avec check
+   -Display-only (span) : lecture seule, pas de check, pas de hover
+*/
+
+   .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: var(--labor-radius-full);
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-medium);
+    font-size: var(--labor-font-size-s);
+    border: 1.5px solid var(--labor-color-border);
+    background: transparent;
+    color: var(--labor-color-text-green);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  /* HOVER */
+  .tag:hover:not(.tag--display) {
+    border-color: var(--labor-color-primary-light);
+    color: var(--labor-color-primary);
+  }
+  
+  .tag:hover:not(.tag--display) .tag__check {
+    border-color: var(--labor-color-primary-light);
+  }
+  
+  /* CHECK CIRCLE */
+  .tag__check {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--labor-color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+  
+  .tag__check svg {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  /* SÉLECTIONNÉ */
+  .tag--selected {
+    background: linear-gradient(135deg, #7A9E50, #5A7A3A);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(90, 122, 58, 0.3);
+  }
+  
+  .tag--selected:hover:not(.tag--display) {
+    box-shadow: 0 4px 12px rgba(90, 122, 58, 0.4);
+    color: #fff;
+  }
+  
+  .tag--selected .tag__check {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .tag--selected .tag__check svg {
+    opacity: 1;
+  }
+  
+  /* DISPLAY-ONLY */
+  .tag--display {
+    cursor: default;
+    padding: 6px 14px;
+    font-size: 13px;
+    background: var(--labor-color-badge-success-bg, #EDF4E8);
+    border-color: transparent;
+    color: var(--labor-color-badge-success, #3d5a22);
+  }
