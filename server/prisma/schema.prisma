@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -10,4 +8,201 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Enums ───
+enum Role {
+  Farmer
+  SeasonalWorker
+}
+
+enum JobListingStatus {
+  Draft
+  Active
+  Closed
+}
+
+enum ApplicationStatus {
+  Pending
+  UnderReview
+  Accepted
+  Rejected
+}
+
+enum Skill {
+  Harvesting
+  Planting
+  Viticulture
+  Livestock
+  MachineOperation
+  Milking
+  Arboriculture
+  MarketGardening
+}
+
+enum CropType {
+  Cereals
+  Fruits
+  Vegetables
+  Vineyard
+  OliveTrees
+  Horticulture
+  Livestock
+  MarketGardening
+  FieldCrops
+}
+
+enum PaymentType {
+  Hourly
+  Weekly
+  Monthly
+}
+
+enum WorkSchedule {
+  FullTime
+  PartTime
+  Day
+  Night
+  Weekend
+  Flexible
+}
+
+// ─── User ───
+model User {
+  id           String  @id @default(uuid())
+  email        String  @unique
+  passwordHash String
+  role         Role
+  firstName    String
+  lastName     String
+  phoneNumber  String?
+
+  // Relations
+  farmer         Farmer?
+  seasonalWorker SeasonalWorker?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Agriculteur ───
+model Farmer {
+  id String @id @default(uuid())
+
+  // Relation 1-à-1 avec User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Un agriculteur peut gérer plusieurs exploitations (1-N préparé pour le post-MVP)
+  farms Farm[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Exploitation ───
+model Farm {
+  id String @id @default(uuid())
+
+  // Relation N-1 avec Farmer (un agriculteur peut avoir plusieurs exploitations)
+  farmerId String
+  farmer   Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  farmName       String
+  siret          String  @unique
+  city           String?
+  postalCode     String?
+  departement    String? /// Subdivision administrative française
+  proPhoneNumber String?
+
+  // Une exploitation publie plusieurs annonces
+  jobListings JobListing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Saisonnier ───
+model SeasonalWorker {
+  id String @id @default(uuid())
+
+  // Relation 1-à-1 avec User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Informations profil (toutes optionnelles, complétées après inscription)
+  city              String?
+  postalCode        String?
+  departement       String? /// Subdivision administrative française
+  skills            Skill[]
+  availabilityStart DateTime?
+  availabilityEnd   DateTime?
+
+  // Relations
+  applications Application[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Annonce ───
+model JobListing {
+  id String @id @default(uuid())
+
+  // Relation Farm (le farmer est accessible via farm.farmer)
+  farmId String
+  farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  // Contenu de l'annonce
+  jobTitle    String
+  description String
+  status      JobListingStatus @default(Draft)
+
+  // Poste
+  numberOfPositions Int
+  skills            Skill[]
+  cropType          CropType
+  workSchedule      WorkSchedule
+
+  // Conditions
+  payAmount       Decimal
+  paymentType     PaymentType @default(Hourly)
+  housingProvided Boolean     @default(false)
+
+  // Période
+  startDate DateTime
+  endDate   DateTime
+
+  // Localisation (pré-remplie depuis la Farm, mais indépendante)
+  city        String
+  postalCode  String?
+  departement String /// Subdivision administrative française
+
+  // Relations
+  applications Application[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Candidature ───
+model Application {
+  id String @id @default(uuid())
+
+  // Relation vers JobListing
+  jobListingId String
+  jobListing   JobListing @relation(fields: [jobListingId], references: [id], onDelete: Cascade)
+
+  // Relation vers SeasonalWorker
+  seasonalWorkerId String
+  seasonalWorker   SeasonalWorker @relation(fields: [seasonalWorkerId], references: [id], onDelete: Cascade)
+
+  // Contenu
+  coverLetter String
+  status      ApplicationStatus @default(Pending)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([jobListingId, seasonalWorkerId])
 }
