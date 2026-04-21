@@ -13,12 +13,8 @@
 
 import { createContext, useContext,  useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'agriculteur' | 'admin' | 'client';
-}
+import type { User } from '../types/user';
+import { Role } from '../types/user';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -30,9 +26,10 @@ interface AuthContextType {
 
 const mockCurrentUser: User = {
   id: 'user-001',
-  name: 'Jean Dupont',
+  firstName: 'Jean Dupont',
+  lastName: 'Dupont',
   email: 'jean.dupont@example.com',
-  role: 'agriculteur',
+  role: Role.Farmer,
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -51,7 +48,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const role = currentUser?.role ?? null;
   
   const login = async (email: string, password: string) => {
-    console.warn(`🔧 Tentative de login avec ${email} / ${password} - Fonctionnalité pas encore connectée`);
+    if (email === 'test@example.com' && password === 'password123') {
+      setCurrentUser(mockCurrentUser);
+    } else {
+      throw new Error('Identifiants incorrects');
+   }
   };
 
   const logout = () => {

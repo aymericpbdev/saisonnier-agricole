@@ -1,39 +1,38 @@
-import { http, HttpResponse } from 'msw'
-
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'agriculture' | 'admin' | 'saisonnier';
-}
+import { http, HttpResponse } from 'msw';
+import type { User } from '../types/user';
+import { Role } from '../types/user';
 
 let currentUser: User | null = {
   id: 'user-001',
-  name: 'Jean Dupont',
+  firstName: 'Jean',
+  lastName: 'Dupont',
   email: 'jean.dupont@example.com',
-  role: 'agriculture',
+  role: Role.Farmer,
 };
 
 export const handlers = [
 
-  http.post(' /api/auth/login', async ({ request }) => {
+   http.get('/api/ping', () => {
+    return HttpResponse.json({ message: 'pong' });
+  }),
+
+  http.post('/api/auth/login', async ({ request }) => {
     const body = await request.json() as { email: string; password: string };
     const { email, password } = body;
-  
-    if (email === 'test@example.com' && password === 'pasword123') {
-    return HttpResponse.json({
-      success: true,
-      token: 'mock-jwt-token-abc123',
-      user: currentUser,
-    });
-  }
+
+    if (email === 'test@example.com' && password === 'password123') {
+      return HttpResponse.json({
+        success: true,
+        token: 'mock-jwt-token-abc123',
+        user: currentUser,
+      });
+    }
 
     return HttpResponse.json(
-    { sucess: false, message: 'Identificants invalides' },
-    { status: 401 }
-  );
-    }),
+      { success: false, message: 'Identifiants invalides' },
+      { status: 401 }
+    );
+  }),
 
   http.get('/api/auth/me', ({ request }) => {
     const authHeader = request.headers.get('Authorization');
@@ -46,7 +45,7 @@ export const handlers = [
     }
 
     return HttpResponse.json({
-      succes: true,
+      success: true,
       user: currentUser,
     });
   }),
