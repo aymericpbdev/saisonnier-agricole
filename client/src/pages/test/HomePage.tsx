@@ -9,6 +9,7 @@ import Tag from '../../components/ui/Tag/Tag'
 import type { Skill } from '../../types'
 import { Skill as SkillEnum } from '../../types'
 import AlertBanner from '../../components/ui/AlertBanner/AlertBanner'
+import LinkText from '../../components/ui/LinkText/LinkText'
 
 
 
@@ -38,6 +39,7 @@ function HomePage() {
         <Button variant='outline' size='l'> agriiiiiii</Button>
         <Button variant='secondary' size='s'>saisooooo</Button>
         <Button variant='danger' size='l'>warnig</Button>
+        <Button variant='primary' size='m'>Connexion</Button>
 
         <AnnonceCard typeCulture='Crop_Cereals' onClick={() => alert('cliqué !')}>
         <div>
@@ -149,6 +151,19 @@ function HomePage() {
         Vos modifications ont été enregistrées.
       </AlertBanner>
 
+
+    
+      <h1>LinkText</h1>
+      <div style={{display: 'flex', justifyContent: 'center', flex: 'wrap', gap: '40px', marginBottom: '60px'  }}>
+        
+        <LinkText to="/annonces">← Retour aux annonces</LinkText>
+        <p>
+          Pas encore de compte ? <LinkText to="/inscription">S'inscrire</LinkText>
+        </p>
+        <LinkText to="/mot-de-passe-oublie">Mot de passe oublié ?</LinkText>
+        <LinkText to="https://example.com" external>Conditions générales</LinkText>
+      </div>
+      
 
       </div>
     
