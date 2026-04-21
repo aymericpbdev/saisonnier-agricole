@@ -1,8 +1,10 @@
-# Conventions Git
+# Guide contribution
 
-Ce document définit les règles de commits et de pull requests pour le projet. Chaque personne qui contribue au dépot est tenue de les respecter.
+Ce document définit les règles de commits et de pull requests pour le projet. Chaque personne qui contribue au dépôt est tenue de les respecter.
 
-## Branches
+## Conventions Git
+
+### Branches
 
 La branche `main` est protégée. Personne ne pousse directement dessus.
 
@@ -32,7 +34,7 @@ fix/erreur-formulaire-inscription
 docs/mise-a-jour-readme
 ```
 
-## Commits
+### Commits
 
 Les messages de commit suivent la convention Conventional Commits.
 
@@ -42,7 +44,7 @@ Format :
 type: description courte
 ```
 
-Le type est le meme que celui utilisé pour les branches. La description commence par une minuscule, ne se termine pas par un point, et reste sous les 72 caractères. Elle est rédigée en français.
+Le type est le même que celui utilisé pour les branches. La description commence par une minuscule, ne se termine pas par un point, et reste sous les 72 caractères. Elle est rédigée en français.
 
 Exemples :
 
@@ -64,11 +66,11 @@ ce qui décalait les dates d'un jour en hiver.
 
 Chaque commit doit correspondre à un changement logique unique. On évite les commits fourre-tout du type "modifications diverses" ou "corrections".
 
-## Pull requests
+### Pull requests
 
 Toute modification sur `main` passe par une pull request.
 
-Le titre de la PR suit le meme format que les commits :
+Le titre de la PR suit le même format que les commits :
 
 ```
 type: description courte
@@ -90,7 +92,7 @@ Avant de demander une relecture :
 
 Une approbation minimum est requise avant de merger. Le merge se fait via l'interface GitHub.
 
-## Résumé rapide
+### Résumé rapide
 
 | Élément | Format | Exemple |
 |---------|--------|---------|
@@ -107,7 +109,7 @@ Chaque issue doit avoir **au minimum** :
 Et **idéalement** :
 - Un label de **domaine fonctionnel** quand c'est pertinent (🔐 auth, 👤 profil, 📋 annonces, 📨 candidatures, 🔍 recherche, 📧 emails)
 
-### Exemples
+#### Exemples
 
 - Créer l'endpoint POST /auth/signup → `✨ feature` + `⚙️ backend` + `🔐 auth`
 - Corriger un bug d'affichage sur la page de recherche → `🐛 bug` + `🎨 frontend` + `🔍 recherche`
@@ -115,7 +117,7 @@ Et **idéalement** :
 - Documenter l'architecture backend → `📝 documentation` + `⚙️ backend`
 - Mettre à jour une dépendance → `🔧 chore`
 
-### Quelques règles
+#### Quelques règles
 - Une issue = un seul label de type, un seul label de zone
 - Une issue peut avoir plusieurs labels de domaine si elle en touche plusieurs (rare)
 - Si tu ne sais pas quel label mettre, mets au minimum le type et la zone, on ajustera à la review
