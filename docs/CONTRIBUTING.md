@@ -2,6 +2,89 @@
 
 Ce document définit les règles de commits et de pull requests pour le projet. Chaque personne qui contribue au dépôt est tenue de les respecter.
 
+## Environnement de développement
+
+Cette section explique comment configurer ton poste pour travailler sur le projet. Elle s'applique aux nouveaux arrivants et à toute personne qui change de machine.
+
+### Prérequis
+
+Le projet utilise :
+
+- **Node.js 24.11.1**
+- **npm 11.x** (livré avec Node 24)
+
+Pour gérer la version de Node de manière reproductible entre les membres de l'équipe, on utilise **nvm** (Node Version Manager). Le fichier `.nvmrc` à la racine du projet sert de référence à la version attendue.
+
+### Installation de nvm
+
+#### Windows
+
+**Important : désinstaller Node.js d'abord si une version est déjà installée.** Avoir Node installé en parallèle de nvm-windows crée des conflits de PATH et des comportements imprévisibles.
+
+Étapes :
+
+1. Ouvrir le Panneau de configuration et désinstaller toute version de Node.js présente.
+2. Redémarrer le poste pour purger le PATH système.
+3. Télécharger et installer **nvm-windows** (version 1.2.2 ou plus récente) depuis la page officielle : https://github.com/coreybutler/nvm-windows/releases (fichier `nvm-setup.exe`).
+4. Ouvrir un nouveau terminal (Git Bash ou PowerShell) et vérifier avec `nvm version`.
+
+#### macOS et Linux
+
+Installer **nvm** via le script officiel : https://github.com/nvm-sh/nvm#installing-and-updating
+
+Après installation, recharger la configuration du shell (ouvrir un nouveau terminal, ou exécuter `source ~/.zshrc` / `source ~/.bashrc` selon le shell utilisé). Vérifier avec `nvm --version`.
+
+### Mise en place de la version Node du projet
+
+Une fois nvm installé, se placer à la racine du projet (où se trouve `.nvmrc`) et installer la version attendue.
+
+#### Windows (nvm-windows)
+
+nvm-windows ne lit pas automatiquement `.nvmrc`. Il faut spécifier la version manuellement :
+
+```bash
+nvm install 24.11.1
+nvm use 24.11.1
+```
+
+#### macOS et Linux (nvm)
+
+La version est lue depuis `.nvmrc` :
+
+```bash
+nvm install
+nvm use
+```
+
+#### Vérification (tous OS)
+
+```bash
+node -v   # doit afficher v24.11.1
+npm -v    # doit afficher 11.x.x
+```
+
+Si les versions ne correspondent pas, reprendre les étapes précédentes avant de continuer.
+
+### Installation des dépendances
+
+Le projet est organisé en deux packages (`client/` et `server/`). Chacun a ses propres dépendances, à installer séparément.
+
+```bash
+cd client
+npm install
+
+cd ../server
+npm install
+```
+
+Si `npm install` échoue avec une erreur du type `EBADENGINE`, cela signifie que ta version de Node ou de npm ne correspond pas à celle attendue par le projet. Vérifier les prérequis ci-dessus.
+
+### Pourquoi `engine-strict=true`
+
+Le fichier `.npmrc` à la racine contient la ligne `engine-strict=true`. Cette option demande à npm de **refuser** l'installation si les versions de Node et npm de ta machine ne correspondent pas à celles déclarées dans le champ `engines` des `package.json`.
+
+Sans cette option, npm afficherait seulement un avertissement et continuerait l'installation, ce qui laisse le projet fonctionner chez certains et casser chez d'autres selon la version locale. Avec `engine-strict=true`, les divergences sont bloquées explicitement, ce qui garantit que toute l'équipe travaille sur la même stack.
+
 ## Conventions Git
 
 ### Branches
