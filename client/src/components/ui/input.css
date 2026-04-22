@@ -1,0 +1,85 @@
+:root {
+    --labor-sage: #5A7A3A;        /* Le vert pour le hover */
+    --labor-orange: #F4A226;      /* L'orange pour le focus */
+    --labor-charcoal: #2C2A1E;    /* Le gris très foncé pour le texte */
+    --labor-input-bg: #FFFFFF;    /* Fond blanc pour les champs */
+    --labor-input-border: #D1CDBC; /* Bordure beige/gris par défaut */
+        
+    --labor-color-danger: #D93025;      /* Rouge erreur */
+    --labor-color-disabled-bg: #F5F4EF; /* Gris clair pour les champs verrouillés */
+    --labor-color-disabled-text: #A8A596;
+        
+    --labor-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --labor-font-heading: 'Outfit', sans-serif;
+    --labor-font-weight-semibold: 600;
+      
+    --labor-font-size-xs: 0.75rem; /* 12px */
+    --labor-font-size-s: 0.875rem; /* 14px */
+    --labor-font-size-m: 1rem;     /* 16px */
+    
+    /* Animations */
+    --labor-transition-fast: 0.2s ease-in-out;
+}
+
+.labor-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.labor-label {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+    font-size: var(--labor-font-size-s);
+    color: var(--labor-charcoal);
+}
+
+.labor-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.labor-input {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-m);
+    padding: 12px 16px;
+    background-color: var(--labor-input-bg);
+    border: 1.5px solid var(--labor-input-border);
+    border-radius: 8px;
+    color: var(--labor-charcoal);
+    transition: all var(--labor-transition-fast);
+    outline: none;
+}
+
+/* États */
+.labor-input:hover:not(:disabled):not(.error) {
+    border-color: var(--labor-sage);
+}
+
+.labor-input:focus {
+    border-color: var(--labor-orange);
+    box-shadow: 0 0 0 3px rgba(244, 162, 38, 0.2);
+}
+
+.labor-input.error {
+    border-color: var(--labor-color-danger);
+    background-color: #FFF9F9;
+}
+
+.labor-input:disabled {
+    background-color: var(--labor-color-disabled-bg);
+    color: var(--labor-color-disabled-text);
+    cursor: not-allowed;
+    border-color: #E5E2D6;
+}
+
+.labor-error-text {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-danger);
+    margin-top: 4px;
+}

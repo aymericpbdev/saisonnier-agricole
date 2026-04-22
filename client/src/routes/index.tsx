@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import HomePage from '../pages/test/HomePage'
+import LandingPage from '../pages/public/landingPage'
+import Connexion from '../pages/public/connexion'
 import TestPage from '../pages/test/TestPage'
 import NotFoundPage from '../pages/test/NotFoundPage'
 
 const router = createBrowserRouter([
-  { path: '/', element: <HomePage /> },
-  { path: '/test', element: <TestPage /> },
+  { path: '/', element: <LandingPage /> },
+  { path: '/connexion', element: <Connexion /> },
+  { path: '/_test-auth', element: <TestPage /> },
   { path: '*', element: <NotFoundPage /> },
 ])
 
