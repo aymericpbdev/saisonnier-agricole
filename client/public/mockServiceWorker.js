@@ -26,7 +26,7 @@ addEventListener('message', async function (event) {
   if (!clientId || !self.clients) {
     return
   }
-
+  
   const client = await self.clients.get(clientId)
 
   if (!client) {

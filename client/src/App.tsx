@@ -1,19 +1,15 @@
-<<<<<<< HEAD
-import LandingPage from "./pages/public/landingPage";
+import { RouterProvider } from 'react-router-dom';
+import router from './routes';
+import { AuthProvider } from './contexts/AuthContext';
+
 function App() {
-
-
   return (
-    <LandingPage />
-    
-  )
-=======
-import { RouterProvider } from 'react-router-dom'
-import router from './routes'
-
-function App() {
-  return <RouterProvider router={router} />
->>>>>>> 798cd4d54ca47a5ee9e22e3d563b4d7c1502768b
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
+
+
