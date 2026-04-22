@@ -13,8 +13,8 @@
 
 import { createContext, useContext,  useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { User } from '../types/user';
-import { Role } from '../types/user';
+import type { User } from '../types/user.ts';
+import { Role } from '../types/enums.ts';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -26,7 +26,7 @@ interface AuthContextType {
 
 const mockCurrentUser: User = {
   id: 'user-001',
-  firstName: 'Jean Dupont',
+  firstName: 'Jean',
   lastName: 'Dupont',
   email: 'jean.dupont@example.com',
   role: Role.Farmer,
