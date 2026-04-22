@@ -4,17 +4,18 @@ import App from './App.tsx'
 import './styles/global.css'
 
 async function startApp() {
-  // active msw en mode dev
   if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser')
-    await worker.start()
+    const { worker } = await import('./mocks/browser');
+    await worker.start({
+      onUnhandledRequest: 'bypass', // ← ajoute cette ligne
+    });
   }
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <App />
     </StrictMode>,
-  )
+  );
 }
 
-startApp()
+startApp();
