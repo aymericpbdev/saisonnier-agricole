@@ -39,25 +39,19 @@
   /* ZONE PHOTO*/
   .annonce-card__photo {
     width: 200px;
-    flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
     background-size: cover;
     background-position: center;
-    position: relative;
   }
   
-  /* Fondu de la photo vers le blanc
-     Le dégradé va de transparent (à gauche) vers blanc (à droite),
-     pour que la photo se fonde dans la zone de contenu */
-  .annonce-card__photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent 0%, transparent 50%, #fff 100%);
-  }
   
   /* ZONE CONTENU */
   .annonce-card__content {
     flex: 1;
+    margin-left: 180px;
     padding: var(--labor-spacing-l) var(--labor-spacing-l);
     display: flex;
     flex-direction: column;
