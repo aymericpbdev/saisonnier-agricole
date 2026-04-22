@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import "../../styles/landingPage.css";
-const landingPage = () => {
+const LandingPage = () => {
     return (
 <body>
   
@@ -9,7 +10,7 @@ const landingPage = () => {
       <span>La plateforme des récoltes</span>
     </div>
     <div className="nav-actions">
-      <a href="connexion.html" className="btn-outline">Connexion</a>
+      <Link to="/connexion" className="btn-outline">Connexion</Link>
       <a href="#" className="btn-solid">Inscription</a>
     </div>
   </nav>
@@ -21,7 +22,7 @@ const landingPage = () => {
 
       <div className="sidebar-group">
         <a href="#" className="sidebar-link active">Page d'Accueil</a>
-        <a href="connexion.html" className="sidebar-link">Connexion</a>
+        <Link to="/connexion" className="sidebar-link">Connexion</Link>
         <a href="#" className="sidebar-link">Mdp oublié</a>
         <a href="#" className="sidebar-link">Inscription agri</a>
         <a href="#" className="sidebar-link">Inscription saison.</a>
@@ -135,4 +136,4 @@ const landingPage = () => {
 );
 };
       
-export default landingPage;
+export default LandingPage;
