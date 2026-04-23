@@ -29,7 +29,9 @@ const mockCurrentUser: User = {
   firstName: 'Jean',
   lastName: 'Dupont',
   email: 'jean.dupont@example.com',
-  role: Role.Farmer,
+  role: Role.SeasonalWorker,  // changer de role : Role.SeasonalWorker ; Role.Farmer ; setCurrentUser(null)
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -66,10 +68,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth() doit être utilisé à l’intérieur d’un AuthProvider');
   }
   return context;
 };
+//erreurs ici c'est un warning d'eslint React Fast Refresh n'aime pas qu'un fichier .tsx exporte à la fois un composant (AuthProvider) et une fonction non-composant (useAuth).
+//solution passer use auth dans un autre fichier (à voir)

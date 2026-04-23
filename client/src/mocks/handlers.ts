@@ -1,13 +1,15 @@
 import { http, HttpResponse } from 'msw';
 import type { User } from '../types/user';
-import { Role } from '../types/user';
+import { Role } from '../types/enums';
 
-let currentUser: User | null = {
+const currentUser: User | null = {
   id: 'user-001',
   firstName: 'Jean',
   lastName: 'Dupont',
   email: 'jean.dupont@example.com',
   role: Role.Farmer,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 };
 
 export const handlers = [
