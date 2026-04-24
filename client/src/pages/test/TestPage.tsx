@@ -11,6 +11,7 @@ import { Skill as SkillEnum } from '../../types'
 import AlertBanner from '../../components/ui/AlertBanner/AlertBanner'
 import LinkText from '../../components/ui/LinkText/LinkText'
 import { LaborInput } from '../../components/ui/Input/input'
+import  LaborTextarea  from '../../components/ui/Textarea/textarea'
 
 
 
@@ -22,6 +23,8 @@ function TestPage() {
     SkillEnum.MarketGardening,
     SkillEnum.Planting,
   ])
+
+  const [textareaValue, setTextareaValue] = useState('')
 
   // Toggle une skill dans la liste
   function handleToggle(skill: Skill) {
@@ -169,6 +172,34 @@ function TestPage() {
       <h1>Input</h1>
       <LaborInput id='nom' label='Nom' type='text'/>
       <LaborInput id="email" label="Email" type="email" placeholder="jean@email.com"/>
+      </div>
+
+      <div style={{ marginLeft: '50px' }}>
+      <h1>Textarea</h1>
+      <LaborTextarea
+        id="description"
+        label="Description"
+        placeholder="Décris ta mission…"
+        value={textareaValue}
+        onChange={setTextareaValue}
+        minLength={10}
+        maxLength={300}
+      />
+      <LaborTextarea
+        id="textarea-error"
+        label="Avec erreur"
+        placeholder="Champ en erreur…"
+        value=""
+        onChange={() => {}}
+        error="Ce champ est requis."
+      />
+      <LaborTextarea
+        id="textarea-disabled"
+        label="Désactivé"
+        value="Champ désactivé"
+        onChange={() => {}}
+        disabled
+      />
       </div>
 
       
