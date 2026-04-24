@@ -12,7 +12,7 @@ import AlertBanner from '../../components/ui/AlertBanner/AlertBanner'
 import LinkText from '../../components/ui/LinkText/LinkText'
 import { LaborInput } from '../../components/ui/Input/input'
 import  LaborTextarea  from '../../components/ui/Textarea/textarea'
-
+import LaborMultiSelect from '../../components/ui/Select/select'
 
 
 
@@ -26,6 +26,8 @@ function TestPage() {
 
   const [textareaValue, setTextareaValue] = useState('')
 
+  const [selectedValues, setSelectedValues] = useState<string[]>([])
+
   // Toggle une skill dans la liste
   function handleToggle(skill: Skill) {
     setSelectedSkills(prev =>
@@ -36,6 +38,17 @@ function TestPage() {
   }
 
   const allSkills = Object.values(SkillEnum)
+
+  const skillOptions = [
+    { value: 'Skill_Harvesting', label: 'Vendange' },
+    { value: 'Skill_Planting', label: 'Plantation' },
+    { value: 'Skill_Viticulture', label: 'Viticulture' },
+    { value: 'Skill_Livestock', label: 'Élevage' },
+    { value: 'Skill_MachineOperation', label: "Conduite d'engins" },
+    { value: 'Skill_Milking', label: 'Traite' },
+    { value: 'Skill_Arboriculture', label: 'Arboriculture' },
+    { value: 'Skill_MarketGardening', label: 'Maraîchage' },
+]
 
     return (
       <div>
@@ -201,6 +214,31 @@ function TestPage() {
         disabled
       />
       </div>
+
+      <div style={{ marginLeft: '50px' }}>
+    <h1>MultiSelect</h1>
+    <LaborMultiSelect
+        label="Compétences"
+        options={skillOptions}
+        value={selectedValues}
+        onChange={setSelectedValues}
+        placeholder="Choisir des compétences..."
+    />
+    <LaborMultiSelect
+        label="Avec erreur"
+        options={skillOptions}
+        value={[]}
+        onChange={() => {}}
+        error="Ce champ est requis."
+    />
+    <LaborMultiSelect
+        label="Désactivé"
+        options={skillOptions}
+        value={['Skill_Harvesting']}
+        onChange={() => {}}
+        disabled
+    />
+</div>
 
       
       

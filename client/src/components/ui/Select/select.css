@@ -1,0 +1,154 @@
+.labor-multiselect-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.labor-multiselect-trigger {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: var(--labor-input-bg);
+    border: 1.5px solid var(--labor-color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--labor-transition-fast);
+    min-height: 48px;
+}
+
+.labor-multiselect-trigger:hover:not(.disabled) {
+    border-color: var(--labor-sage);
+}
+
+.labor-multiselect-trigger.open {
+    border-color: var(--labor-orange);
+    box-shadow: 0 0 0 3px rgba(244, 162, 38, 0.2);
+}
+
+.labor-multiselect-trigger.error {
+    border-color: var(--labor-color-danger);
+    background-color: #FFF9F9;
+}
+
+.labor-multiselect-trigger.disabled {
+    background-color: var(--labor-color-disabled-bg);
+    cursor: not-allowed;
+    border-color: #E5E2D6;
+}
+
+.labor-multiselect-placeholder {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-m);
+    color: var(--labor-color-text-muted, #aaa);
+}
+
+.labor-multiselect-arrow {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--labor-charcoal);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.labor-multiselect-arrow.open {
+    transform: rotate(180deg);
+}
+
+.labor-multiselect-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--labor-radius-full);
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-medium);
+    font-size: var(--labor-font-size-s);
+    background: linear-gradient(135deg, #7A9E50, #5A7A3A);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(90, 122, 58, 0.3);
+}
+
+.labor-multiselect-tag-remove {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.labor-multiselect-tag-remove:hover {
+    opacity: 1;
+}
+
+.labor-multiselect-dropdown {
+    background: var(--labor-input-bg);
+    border: 1.5px solid var(--labor-orange);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.labor-multiselect-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-m);
+    color: var(--labor-charcoal);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.labor-multiselect-option:hover {
+    background: var(--labor-color-bg-hover, #F5F2EA);
+}
+
+.labor-multiselect-option.selected {
+    color: var(--labor-color-primary, #5A7A3A);
+    font-weight: var(--labor-font-weight-medium);
+}
+
+.labor-multiselect-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--labor-color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.labor-multiselect-option.selected .labor-multiselect-checkbox {
+    background: linear-gradient(135deg, #7A9E50, #5A7A3A);
+    border-color: transparent;
+}
+
+.labor-multiselect-checkbox svg {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.labor-multiselect-option.selected .labor-multiselect-checkbox svg {
+    opacity: 1;
+}
+
+.labor-error-text {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-danger);
+    margin-top: 4px;
+}
