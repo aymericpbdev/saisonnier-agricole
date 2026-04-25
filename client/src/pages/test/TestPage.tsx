@@ -13,7 +13,7 @@ import LinkText from '../../components/ui/LinkText/LinkText'
 import { LaborInput } from '../../components/ui/Input/input'
 import  LaborTextarea  from '../../components/ui/Textarea/textarea'
 import LaborMultiSelect from '../../components/ui/Select/select'
-
+import LaborCheckbox from '../../components/ui/Checkbox/checkbox'
 
 
 
@@ -27,6 +27,9 @@ function TestPage() {
   const [textareaValue, setTextareaValue] = useState('')
 
   const [selectedValues, setSelectedValues] = useState<string[]>([])
+
+  const [checkedValues, setCheckedValues] = useState<string[]>([])
+const [checkedValuesLabor, setCheckedValuesLabor] = useState<string[]>([])
 
   // Toggle une skill dans la liste
   function handleToggle(skill: Skill) {
@@ -233,6 +236,46 @@ function TestPage() {
     />
     <LaborMultiSelect
         label="Désactivé"
+        options={skillOptions}
+        value={['Skill_Harvesting']}
+        onChange={() => {}}
+        disabled
+    />
+</div>
+
+<div style={{ marginLeft: '50px' }}>
+    <h1>Checkbox</h1>
+
+    <h2>Variante Classic</h2>
+    <LaborCheckbox
+        label="Compétences"
+        options={skillOptions}
+        value={checkedValues}
+        onChange={setCheckedValues}
+        variant="classic"
+    />
+
+    <h2>Variante LABOR</h2>
+    <LaborCheckbox
+        label="Compétences"
+        options={skillOptions}
+        value={checkedValuesLabor}
+        onChange={setCheckedValuesLabor}
+        variant="labor"
+    />
+
+    <h2>Avec erreur</h2>
+    <LaborCheckbox
+        label="Compétences"
+        options={skillOptions}
+        value={[]}
+        onChange={() => {}}
+        error="Veuillez sélectionner au moins une compétence."
+    />
+
+    <h2>Désactivé</h2>
+    <LaborCheckbox
+        label="Compétences"
         options={skillOptions}
         value={['Skill_Harvesting']}
         onChange={() => {}}
