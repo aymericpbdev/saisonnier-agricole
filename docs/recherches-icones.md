@@ -1,9 +1,34 @@
 # Recherches d'icônes et pictogrammes libres de droit
  
-**Objectif :** Identifier 2 ou 3 bibliothèques pour l'UI de Labor
+> **Objectif :** Identifier 2 ou 3 bibliothèques pour l'UI de Labor
  
 ---
  
+ ## Sommaire
+
+1. [Comparatif](#comparatif)
+2. [Icônes par cas d'usage](#icônes-par-cas-dusage)
+   - [Navigation](#navigation)
+   - [Boutons](#boutons)
+   - [Statuts JobListingStatus](#statuts--joblistingstatus)
+   - [Statuts ApplicationStatus](#statuts--applicationstatus)
+   - [Messages d'erreur & alertes](#messages-derreur--alertes)
+   - [Domaine agricole](#domaine-agricole)
+   - [Compétences — Skill](#compétences--skill)
+   - [Types de culture — CropType](#types-de-culture--croptype)
+   - [Rémunération](#rémunération)
+   - [Planning — WorkSchedule](#planning--workschedule)
+   - [Authentification & Profil](#authentification--profil)
+3. [Autres bibliothèques consultées](#autres-bibliothèques-consultées)
+   - [Agrégateurs d'icônes](#agrégateurs-dicônes-recherche-thématique-agricole)
+4. [Recommandations](#recommandations)
+   - [Choix principal](#choix-principal)
+   - [Choix complémentaire](#choix-complémentaire)
+   - [Troisième option](#troisième-option)
+   - [Pourquoi ces trois bibliothèques](#pourquoi-ces-trois-bibliothèques)
+
+---
+
 ## Comparatif
  
 | Bibliothèque | Licence | Nb icônes | Style | Lien | GitHub |
