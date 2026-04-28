@@ -1,0 +1,149 @@
+/* FOOTER */
+
+   .footer {
+    background-color: var(--labor-color-bg-dark);
+    color: var(--labor-color-text-light);
+    
+  }
+  
+  /* Ligne orange décorative en haut */
+  .footer__accent-line {
+    height: 4px;
+    background: var(--labor-color-border-gradient);
+  }
+  
+  /* Contenu principal: layout deux colonnes */
+  .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1fr ;
+    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 40px;
+  }
+  
+  /* Colonne gauche: marque */
+  
+  .footer__brand {
+    max-width: 400px;
+  }
+  
+  .footer__brand-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--labor-spacing-s);
+    margin-bottom: var(--labor-spacing-s);
+  }
+
+  .navbar__logo-img {
+    height: 80px ;
+    width: 150px;
+  }
+  
+  .footer__brand-name {
+    font-family: var(--labor-font-heading);
+    font-size: var(--labor-font-size-2xl);
+    font-weight: var(--labor-font-weight-bold);
+    color: var(--labor-color-text-light);
+    letter-spacing: 2px;
+  }
+  
+  /* Baseline colorée */
+  .footer__baseline {
+    font-size: var(--labor-font-size-m);
+    font-style: italic;
+    font-weight: var(--labor-font-weight-semibold);
+    margin-bottom: var(--labor-spacing-s);
+  }
+  
+  .footer__baseline--trouver {
+    color: var(--labor-orange);
+  }
+  
+  .footer__baseline--travailler {
+    color: var(--labor-sage);
+  }
+  
+  .footer__baseline--recolter {
+    color: var(--labor-fern);
+  }
+  
+  /* Description */
+  .footer__description {
+    font-size: var(--labor-font-size-s);
+    color: var(--labor-color-neutral);
+    line-height: 1.6;
+    margin-bottom: var(--labor-spacing-m);
+  }
+  
+  /* Réseaux sociaux */
+  .footer__socials {
+    display: flex;
+    gap: var(--labor-spacing-s);
+  }
+  
+  .footer__social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--labor-radius-full);
+    border: 1.5px solid var(--labor-fern);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--labor-color-neutral);
+    text-decoration: none;
+    font-size: var(--labor-font-size-s);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  
+  .footer__social-icon:hover {
+    border-color: var(--labor-orange);
+    color: var(--labor-orange);
+  }
+  
+  /* Colonne droite: informations */
+  
+  .footer__info {
+    text-align: right;
+  }
+  
+  .footer__info-title {
+    /* h4 hérite déjà de font-family Outfit et font-weight semibold via global.css */
+    margin-bottom: var(--labor-spacing-m);
+    color: var(--labor-color-text-light);
+  }
+  
+  .footer__info-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--labor-spacing-s);
+  }
+  
+  .footer__info-links a {
+    color: var(--labor-color-neutral);
+    text-decoration: none;
+    font-size: var(--labor-font-size-s);
+    transition: color 0.2s;
+  }
+  
+  .footer__info-links a:hover {
+    color: var(--labor-orange);
+  }
+  
+  /* Bas du footer: copyright*/
+  
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--labor-spacing-m) var(--labor-spacing-l);
+    text-align: center;
+  }
+  
+  .footer__bottom p {
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-neutral);
+    margin: 0;
+  }

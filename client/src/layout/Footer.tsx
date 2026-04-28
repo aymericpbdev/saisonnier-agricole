@@ -1,5 +1,6 @@
 
 import './Footer.css'
+import logo from '../assets/labor-logo-text.svg'
 
 function Footer() {
   return (
@@ -14,7 +15,9 @@ function Footer() {
         <div className="footer__brand">
           <div className="footer__brand-logo">
             {/* TODO: remplacer par le vrai composant logo quand il sera prêt */}
-            <span className="footer__brand-name">LABOR</span>
+            <div className="navbar__logo">
+                <img src={logo} alt="Labor" className="navbar__logo-img"/>
+</div>
           </div>
 
           <p className="footer__baseline">
