@@ -1,0 +1,62 @@
+.labor-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.labor-label {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+    font-size: var(--labor-font-size-s);
+    color: var(--labor-charcoal);
+}
+
+.labor-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.labor-input {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-m);
+    padding: 12px 16px;
+    background-color: var(--labor-input-bg);
+    border: 1.5px solid var(--labor-color-border);
+    border-radius: 8px;
+    color: var(--labor-charcoal);
+    transition: all var(--labor-transition-fast);
+    outline: none;
+}
+
+/* États */
+.labor-input:hover:not(:disabled):not(.error) {
+    border-color: var(--labor-sage);
+}
+
+.labor-input:focus {
+    border-color: var(--labor-orange);
+    box-shadow: 0 0 0 3px rgba(244, 162, 38, 0.2);
+}
+
+.labor-input.error {
+    border-color: var(--labor-color-danger);
+    background-color: #FFF9F9;
+}
+
+.labor-input:disabled {
+    background-color: var(--labor-color-disabled-bg);
+    color: var(--labor-color-disabled-text);
+    cursor: not-allowed;
+    border-color: #E5E2D6;
+}
+
+.labor-error-text {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-danger);
+    margin-top: 4px;
+}

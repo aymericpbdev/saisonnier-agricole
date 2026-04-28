@@ -1,0 +1,196 @@
+/* 
+BUTTON — composant de base
+
+Convention BEM :
+.btn           → block (règles communes à tous les boutons)
+.btn--variant  → modifier de style (primary, secondary, outline, danger)
+.btn--size     → modifier de taille (s, m, l)
+.btn--loading  → modifier d'état (en cours de chargement)
+Variables locales : dégradés et ombres colorées spécifiques
+au bouton. Déclarées sur .btn, donc accessibles à toutes les
+sous-classes .btn--*. 
+*/
+
+   .btn {
+    /*  Variables locales */
+  
+    /* Dégradés des variantes (135deg au repos, 315deg au hover) */
+    --btn-gradient-primary: linear-gradient(135deg, #7A9E50, #5A7A3A);
+    --btn-gradient-primary-hover: linear-gradient(315deg, #7A9E50, #5A7A3A);
+  
+    --btn-gradient-secondary: linear-gradient(135deg, #FAD961, #F4A226);
+    --btn-gradient-secondary-hover: linear-gradient(315deg, #FAD961, #F4A226);
+  
+    --btn-gradient-danger: linear-gradient(135deg, #D85A30, #C4453C);
+    --btn-gradient-danger-hover: linear-gradient(315deg, #D85A30, #C4453C);
+  
+    /* Ombres colorées (teinte de la variante, 2 intensités) */
+    --btn-shadow-primary: 0 4px 16px rgba(90, 122, 58, 0.4);
+    --btn-shadow-primary-hover: 0 6px 24px rgba(90, 122, 58, 0.55);
+  
+    --btn-shadow-secondary: 0 4px 16px rgba(244, 162, 38, 0.4);
+    --btn-shadow-secondary-hover: 0 6px 24px rgba(244, 162, 38, 0.55);
+  
+    --btn-shadow-danger: 0 4px 16px rgba(196, 69, 60, 0.4);
+    --btn-shadow-danger-hover: 0 6px 24px rgba(196, 69, 60, 0.55);
+  
+    /* Propriétés de base */
+  
+    /* Forme : pill (radius très arrondi) */
+    border-radius: var(--labor-radius-full);
+    border: 2px solid transparent;
+  
+    /* Typo : Outfit semibold */
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+  
+    /* Interactions */
+    cursor: pointer;
+    outline: none;
+  
+    /* Transitions séparées : lift rapide, dégradé lent
+       Cette combinaison donne l'effet "lumière qui tourne" au hover */
+    transition:
+      transform var(--labor-transition-fast),
+      box-shadow var(--labor-transition-medium),
+      background var(--labor-transition-slow);
+  
+    /* On garde la position relative pour le spinner en ::after */
+    position: relative;
+  }
+  
+  /* TAILLES */
+  
+  .btn--s {
+    font-size: var(--labor-font-size-s);    /* 14px */
+    padding: 8px 20px;
+  }
+  
+  .btn--m {
+    font-size: var(--labor-font-size-m);    /* 16px */
+    padding: 12px 28px;
+  }
+  
+  .btn--l {
+    font-size: var(--labor-font-size-l);    /* 20px desktop, 18px mobile */
+    padding: 14px 36px;
+  }
+  
+  /* VARIANTES — état normal*/
+  
+  /* Primary : dégradé vert */
+  .btn--primary {
+    background: var(--btn-gradient-primary);
+    color: #ffffff;
+    box-shadow: var(--btn-shadow-primary);
+  }
+  
+  /* Secondary : dégradé orange */
+  .btn--secondary {
+    background: var(--btn-gradient-secondary);
+    color: var(--labor-color-text);  /* charcoal pour lisibilité sur jaune */
+    box-shadow: var(--btn-shadow-secondary);
+  }
+  
+  /* Outline : bordure verte sur fond transparent */
+  .btn--outline {
+    background: transparent;
+    color: var(--labor-color-primary);
+    border-color: var(--labor-color-primary-light);
+  }
+  
+  /* Danger : dégradé rouge */
+  .btn--danger {
+    background: var(--btn-gradient-danger);
+    color: #ffffff;
+    box-shadow: var(--btn-shadow-danger);
+  }
+  
+  /* HOVER */
+  /*Le sélecteur :not() permet d'appliquer le hover UNIQUEMENT aux boutons actifs. Sans ça, un bouton disabled aurait encore un effet au survol, ce qui serait trompeur.*/
+  .btn--primary:hover:not(:disabled):not(.btn--loading) {
+    background: var(--btn-gradient-primary-hover);
+    box-shadow: var(--btn-shadow-primary-hover);
+    transform: translateY(-2px);
+  }
+  
+  .btn--secondary:hover:not(:disabled):not(.btn--loading) {
+    background: var(--btn-gradient-secondary-hover);
+    box-shadow: var(--btn-shadow-secondary-hover);
+    transform: translateY(-2px);
+  }
+  
+  .btn--outline:hover:not(:disabled):not(.btn--loading) {
+    background: rgba(122, 158, 80, 0.12);  
+    transform: translateY(-2px);
+  }
+  
+  .btn--danger:hover:not(:disabled):not(.btn--loading) {
+    background: var(--btn-gradient-danger-hover);
+    box-shadow: var(--btn-shadow-danger-hover);
+    transform: translateY(-2px);
+  }
+  
+  /* ACTIVE — feedback au clic*/
+  
+  .btn:active:not(:disabled):not(.btn--loading) {
+    transform: scale(0.96);
+  }
+  
+  /*DISABLED */
+  
+  .btn:disabled {
+    background: var(--labor-color-disabled-bg);
+    color: var(--labor-color-disabled-text);
+    border-color: transparent;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  
+  /* LOADING — texte masqué, spinner au centre */
+  
+  .btn--loading {
+    color: transparent !important;  
+    cursor: wait;
+    pointer-events: none;            
+  }
+  
+  /* Spinner positionné au centre du bouton */
+  .btn--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;          
+  
+    border: 2px solid currentColor; 
+    border-top-color: transparent;  
+    border-radius: 50%;
+  
+    animation: btn-spin 0.7s linear infinite;
+  }
+  
+  /* Couleurs du spinner selon la variante
+     (on force la couleur car currentColor = transparent en loading) */
+  .btn--primary.btn--loading::after,
+  .btn--danger.btn--loading::after {
+    border-color: #ffffff;
+    border-top-color: transparent;
+  }
+  
+  .btn--secondary.btn--loading::after {
+    border-color: var(--labor-color-text);
+    border-top-color: transparent;
+  }
+  
+  .btn--outline.btn--loading::after {
+    border-color: var(--labor-color-primary);
+    border-top-color: transparent;
+  }
+  
+  /* Animation du spinner : rotation continue */
+  @keyframes btn-spin {
+    to { transform: rotate(360deg); }
+  }

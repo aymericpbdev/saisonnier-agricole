@@ -1,0 +1,77 @@
+/* BADGE — indicateur de statut
+
+   Variantes alignées sur les enums Prisma :
+   - JobListingStatus : Active, Draft, Closed
+   - ApplicationStatus : Pending, UnderReview, Accepted, Rejected
+
+   Couleurs sémantiques :
+   - Vert   => statut positif (Active, Accepted)
+   - Gris   =>statut neutre (Draft)
+   - Rouge  => statut négatif (Closed, Rejected)
+   - Orange => statut en attente (Pending)
+   - Neutre foncé → statut en cours (UnderReview) */
+
+   .badge {
+    display: inline-block;
+    border-radius: var(--labor-radius-full);
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-medium);
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  
+  /* TAILLES*/
+  
+  .badge--s {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+  
+  .badge--m {
+    font-size: 13px;
+    padding: 4px 12px;
+  }
+  
+  .badge--l {
+    font-size: 15px;
+    padding: 6px 14px;
+  }
+  
+  /* VARIANTES JobListingStatus*/
+  
+  .badge--Active {
+    background: var(--labor-color-badge-success-bg, #EDF4E8);
+    color: var(--labor-color-badge-success, #3d5a22);
+  }
+  
+  .badge--Draft {
+    background: var(--labor-color-badge-neutral-bg, #F0EDE6);
+    color: var(--labor-color-badge-neutral, #5F5E5A);
+  }
+  
+  .badge--Closed {
+    background: var(--labor-color-badge-danger-bg, #FBEAEA);
+    color: var(--labor-color-badge-danger, #9e312a);
+  }
+  
+  /* VARIANTES ApplicationStatus*/
+  
+  .badge--Pending {
+    background: var(--labor-color-badge-warning-bg, #FDF3E0);
+    color: var(--labor-color-badge-warning, #a06e10);
+  }
+  
+  .badge--UnderReview {
+    background: var(--labor-color-badge-review-bg, #E8E6DF);
+    color: var(--labor-color-badge-review, #2C2A1E);
+  }
+  
+  .badge--Accepted {
+    background: var(--labor-color-badge-success-bg, #EDF4E8);
+    color: var(--labor-color-badge-success, #3d5a22);
+  }
+  
+  .badge--Rejected {
+    background: var(--labor-color-badge-danger-bg, #FBEAEA);
+    color: var(--labor-color-badge-danger, #9e312a);
+  }

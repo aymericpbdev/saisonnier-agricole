@@ -1,0 +1,70 @@
+/* LINK TEXT liens de navigation textuels
+
+   Usage : "Mot de passe oublié ?", "← Retour à l'annonce",
+   "Déjà un compte ? Se connecter", "Voir toutes les annonces →" ...
+
+   Deux styles disponibles (à tester et définir plus tard) :
+   -V1 (actif)  : vert primary, underline qui apparaît au hover
+   -V2 (commenté) : charcoal, underline orange qui slide au hover
+   Pour changer de style, commenter V1 et décommenter V2.*/
+
+/* V1: Vert, underline qui apparaît au hover*/
+
+.link-text {
+    color: var(--labor-color-primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .link-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--labor-color-primary);
+    transition: width 0.3s ease;
+  }
+  
+  .link-text:hover {
+    color: var(--labor-color-primary-dark);
+  }
+  
+  .link-text:hover::after {
+    width: 100%;
+  }
+  
+  /* V4: Charcoal, underline orange qui slide (COMMENTÉ)
+  
+  .link-text {
+    color: var(--labor-charcoal);
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .link-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--labor-color-secondary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  .link-text:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+   FIN V4 */

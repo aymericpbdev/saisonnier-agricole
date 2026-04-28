@@ -1,0 +1,110 @@
+.labor-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.labor-checkbox-label {
+    font-family: var(--labor-font-heading);
+    font-weight: var(--labor-font-weight-semibold);
+    font-size: var(--labor-font-size-s);
+    color: var(--labor-charcoal);
+    margin-bottom: 4px;
+}
+
+/* OPTION (ligne cliquable) */
+.labor-checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.labor-checkbox-option.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.labor-checkbox-option-label {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-m);
+    color: var(--labor-charcoal);
+    user-select: none;
+}
+
+   /*VARIANTE CLASSIC*/
+
+.labor-checkbox-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--labor-color-border);
+    background: var(--labor-input-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--labor-transition-fast);
+}
+
+.labor-checkbox-option:hover:not(.disabled) .labor-checkbox-box {
+    border-color: var(--labor-sage);
+}
+
+.labor-checkbox-box.checked {
+    background: var(--labor-orange);
+    border-color: var(--labor-orange);
+}
+
+.labor-checkbox-box svg {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.labor-checkbox-box.checked svg {
+    opacity: 1;
+}
+
+
+   /* VARIANTE LABOR (cercle vert) */
+
+.labor-checkbox-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--labor-color-border);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+
+.labor-checkbox-option:hover:not(.disabled) .labor-checkbox-circle {
+    border-color: var(--labor-color-primary-light);
+}
+
+.labor-checkbox-circle.checked {
+    background: linear-gradient(135deg, #7A9E50, #5A7A3A);
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(90, 122, 58, 0.3);
+}
+
+.labor-checkbox-circle svg {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.labor-checkbox-circle.checked svg {
+    opacity: 1;
+}
+
+/* ERREUR */
+.labor-error-text {
+    font-family: var(--labor-font-body);
+    font-size: var(--labor-font-size-xs);
+    color: var(--labor-color-danger);
+    margin-top: 4px;
+}
